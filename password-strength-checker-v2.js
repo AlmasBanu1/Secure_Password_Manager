@@ -1,3 +1,8 @@
+// Password Strength Checker - Version 2
+// This version introduces three password strength levels:
+// Strong, Medium, and Weak.
+// Uppercase and number values are still provided manually.
+
 // Sample password data
 let password = "SecurePassword123";
 let hasUppercase = true;
@@ -9,24 +14,26 @@ function checkPasswordStrength(
     hasUppercase,
     hasNumber
 ) {
-    // Strong condition
-    if(password.length >= 12 && hasUppercase && hasNumber){
+
+    // Strong password
+    if (password.length >= 12 && hasUppercase && hasNumber) {
         return "Strong Password";
     }
-    // Medium condition
-    else if(password.length >= 8){
+
+    // Medium password
+    if (password.length >= 8) {
         return "Medium Strength Password";
     }
-    // Weak condition
-    else{
-        return "Weak Strength Password";
-    }
 
+    // Weak password
+    return "Weak Strength Password";
 }
 
-// Display result
-console.log(checkPasswordStrength(
-    password,
-    hasUppercase,
-    hasNumber
-));
+// Test the function
+console.log(
+    checkPasswordStrength(
+        password,
+        hasUppercase,
+        hasNumber
+    )
+);
