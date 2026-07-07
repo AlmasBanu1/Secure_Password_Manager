@@ -1,6 +1,6 @@
 // Password Strength Checker - Version 1
-// This version evaluates password strength using
-// manually provided uppercase and number flags.
+// Checks password strength using manually provided boolean values
+// for uppercase letters and numbers.
 
 // Sample password data
 let password = "Secure123";

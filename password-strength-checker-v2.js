@@ -1,7 +1,6 @@
 // Password Strength Checker - Version 2
-// This version introduces three password strength levels:
+// Adds three password strength levels:
 // Strong, Medium, and Weak.
-// Uppercase and number values are still provided manually.
 
 // Sample password data
 let password = "SecurePassword123";

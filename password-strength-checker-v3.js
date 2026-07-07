@@ -1,4 +1,11 @@
 // Password Strength Checker - Version 3
+// Introduces character-by-character scanning using loops.
+// This version demonstrates how to iterate through a password.
+
+function checkPasswordStrength(password) {
+    // Flags to track password requirements
+    let hasUppercase = false;
+    let hasNumber = false;// Password Strength Checker - Version 3
 // This version automatically detects uppercase letters and numbers
 // using loops instead of relying on manually provided boolean values.
 
