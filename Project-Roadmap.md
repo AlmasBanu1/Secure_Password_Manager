@@ -59,14 +59,22 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Boolean flags
 
 ---
+## ✅ Version 5
 
-# 🛠 Upcoming Milestones
+**Features**
+- Dynamic uppercase letter detection
+- Dynamic lowercase letter detection
+- Dynamic numeric digit detection
 
-## ⬜ Version 5
-
-Detect lowercase letters dynamically.
+**JavaScript Concepts Used**
+- Character range comparison
+- Loop through every character
+- Boolean flags
+- Conditional statements
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 6
 
