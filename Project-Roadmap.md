@@ -74,13 +74,24 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 6
 
-## ⬜ Version 6
+**Features**
+- Dynamic uppercase letter detection
+- Dynamic lowercase letter detection
+- Dynamic numeric digit detection
+- Dynamic special character detection
 
-Detect special characters dynamically.
+**JavaScript Concepts Used**
+- Character range comparison
+- Loop through every character
+- Boolean flags
+- Logical NOT (`!`)
+- Boolean expressions
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 7
 
