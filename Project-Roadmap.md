@@ -91,13 +91,24 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 7
 
-## ⬜ Version 7
+**Features**
+- Password score calculation
+- Weak / Medium / Strong classification
+- Dynamic evaluation using scoring rules
 
-Improve password scoring logic.
+**JavaScript Concepts Used**
+- Functions
+- Loops
+- Character range comparison
+- Boolean flags
+- Conditional statements (`if`, `else if`, `else`)
+- Score calculation
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 8
 
