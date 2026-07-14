@@ -108,65 +108,110 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 8
 
-## ⬜ Version 8
+**Features**
+- Generate one random uppercase letter
+- Generate one random lowercase letter
+- Generate one random number
+- Generate one random special character
+- Store generated characters inside an array
 
-Generate secure passwords.
+**JavaScript Concepts Used**
+- Strings
+- String indexing
+- Arrays
+- `Math.random()`
+- `Math.floor()`
+- Random number generation
+- Variables
+- Array initialization
 
 ---
 
+# 🛠 Upcoming Milestones
+
 ## ⬜ Version 9
 
-Store multiple passwords using arrays.
+Shuffle generated password characters.
 
 ---
 
 ## ⬜ Version 10
 
-Search passwords.
+Generate passwords of custom length.
 
 ---
 
 ## ⬜ Version 11
 
-Update existing passwords.
+Refactor password generation using functions.
 
 ---
 
 ## ⬜ Version 12
 
-Delete passwords.
+Store multiple passwords using arrays.
 
 ---
 
 ## ⬜ Version 13
 
-Store passwords in files.
+Search stored passwords.
 
 ---
 
 ## ⬜ Version 14
 
-Encrypt passwords.
+Update existing passwords.
 
 ---
 
 ## ⬜ Version 15
 
-Build a Command Line Interface (CLI).
+Delete stored passwords.
 
 ---
 
 ## ⬜ Version 16
 
-Build a frontend interface.
+Store passwords in files.
 
 ---
 
 ## ⬜ Version 17
 
+Encrypt passwords.
+
+---
+
+## ⬜ Version 18
+
+Build a Command Line Interface (CLI).
+
+---
+
+## ⬜ Version 19
+
+Build a frontend interface.
+
+---
+
+## ⬜ Version 20
+
+Connect with a backend.
+
+---
+
+## ⬜ Version 21
+
 Connect with a database.
+
+---
+
+## ⬜ Version 22
+
+Final project refactoring and documentation.
 
 ---
 
