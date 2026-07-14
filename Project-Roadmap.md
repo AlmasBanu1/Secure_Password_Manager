@@ -129,13 +129,27 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 9
 
-## ⬜ Version 9
+**Features**
+- Shuffle generated password characters using random swaps
+- Build the final password string from shuffled characters
+- Generate a randomized 4-character password
 
-Shuffle generated password characters.
+**JavaScript Concepts Used**
+- Arrays
+- Array indexing
+- `for` loops
+- Variables
+- Temporary variable (`temp`)
+- Random index generation
+- Array element swapping
+- String concatenation
+- Accumulator pattern
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 10
 
