@@ -1,6 +1,5 @@
 // ======================================================
 // Password Strength Checker - Version 8
-// Password Generation (Part 1)
 // ------------------------------------------------------
 // This version introduces the foundation of the password
 // generation feature.
@@ -46,4 +45,4 @@ let passwordCharacters = [
     randomSpecialChar
 ];
 
-console.log("Password Characters:", passwordCharacters);  
+console.log("Password Characters:", passwordCharacters);
