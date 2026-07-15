@@ -180,13 +180,39 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 11
 
-## ⬜ Version 11
+**Features**
+- Refactor password generation using reusable functions
+- Create a reusable function to pick one random character from any character set
+- Create a reusable function to shuffle any array
+- Create a reusable function to build the final password string
+- Improve code organization through modular programming
+- Improve code readability and maintainability
 
-Refactor password generation using functions.
+**JavaScript Concepts Used**
+- Function declaration
+- Function parameters
+- Function calls
+- `return`
+- Local variables
+- Arrays
+- Array indexing
+- `push()`
+- `for` loops
+- Variables
+- Strings
+- String indexing
+- `Math.random()`
+- `Math.floor()`
+- Random number generation
+- Array element swapping
+- String concatenation
+- Code refactoring
+- Modular programming
 
 ---
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 12
 
