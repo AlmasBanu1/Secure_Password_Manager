@@ -16,7 +16,7 @@
 
 // Password Configuration
 
-let passwordLength = 1;
+let passwordLength = 12;
 let remainingCharacters = passwordLength - 4;
 
 // Input Validation
