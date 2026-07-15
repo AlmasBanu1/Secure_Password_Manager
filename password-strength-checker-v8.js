@@ -46,4 +46,4 @@ let passwordCharacters = [
     randomSpecialChar
 ];
 
-console.log("Password Characters:", passwordCharacters);
+console.log("Password Characters:", passwordCharacters);  
