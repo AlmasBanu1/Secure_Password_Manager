@@ -149,13 +149,38 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 10
 
-## ⬜ Version 10
+**Features**
+- Generate passwords of custom length
+- Generate one mandatory uppercase letter
+- Generate one mandatory lowercase letter
+- Generate one mandatory number
+- Generate one mandatory special character
+- Generate remaining characters randomly from all character groups
+- Shuffle all generated password characters
+- Build the final password string
+- Validate minimum password length
 
-Generate passwords of custom length.
+**JavaScript Concepts Used**
+- Arrays
+- Array indexing
+- `push()`
+- `for` loops
+- Variables
+- Strings
+- String indexing
+- `Math.random()`
+- `Math.floor()`
+- Random number generation
+- Conditional statements (`if`, `else`)
+- Array element swapping
+- String concatenation
+- Accumulator pattern
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 11
 
