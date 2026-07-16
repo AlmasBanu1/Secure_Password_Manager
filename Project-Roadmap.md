@@ -239,13 +239,26 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 13
 
-## ⬜ Version 13
+**Features**
+- Search stored passwords
+- Implement Linear Search
+- Stop searching using `break`
+- Display search result
 
-Search stored passwords.
+**JavaScript Concepts Used**
+- Arrays
+- Linear Search
+- Boolean variables
+- `for` loop
+- `if...else`
+- Comparison (`===`)
+- `break`
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 14
 
