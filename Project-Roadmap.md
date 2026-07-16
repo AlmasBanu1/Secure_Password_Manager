@@ -212,13 +212,34 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Modular programming
 
 ---
-# 🛠 Upcoming Milestones
 
-## ⬜ Version 12
+## ✅ Version 12
 
-Store multiple passwords using arrays.
+**Features**
+- Refactor password generation into `generatePassword()`
+- Reuse helper functions
+- Store multiple generated passwords using arrays
+- Display the last generated password
+- Display all stored passwords
+- Display the total number of stored passwords
+
+**JavaScript Concepts Used**
+- Functions
+- Function composition
+- Arrays
+- `push()`
+- `for` loops
+- Array indexing
+- `length`
+- `return`
+- Guard clause
+- Variable scope
+- Refactoring
+- Code reusability
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 13
 
