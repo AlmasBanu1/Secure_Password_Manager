@@ -1,16 +1,25 @@
 // ==========================================================
-// Password Strength Checker - Version 10
+// Password Strength Checker - Version 11
 // ----------------------------------------------------------
-// This version allows generating passwords of custom length.
+// This version refactors the password generator by introducing
+// reusable functions for modular and maintainable code while
+// preserving all Version 10 functionality.
 //
 // Features:
+// - Generates passwords of custom length
 // - Generates one mandatory uppercase letter
 // - Generates one mandatory lowercase letter
 // - Generates one mandatory number
 // - Generates one mandatory special character
 // - Generates remaining characters randomly
-// - Shuffles all characters
+// - Shuffles all generated characters
 // - Builds the final password string
+//
+// New in this Version:
+// - Introduces pickOneRandomCharacter()
+// - Introduces shuffleArray()
+// - Introduces buildPassword()
+// - Refactors repeated logic into reusable functions
 // ==========================================================
 
 // Password Configuration
