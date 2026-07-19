@@ -258,13 +258,26 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 14
 
-## ⬜ Version 14
+### Features
+- Update an existing password
+- Search using Linear Search
+- Replace password using array indexing
+- Display updated password list
 
-Update existing passwords.
+### JavaScript Concepts Used
+- Arrays
+- Array Indexing
+- Linear Search
+- Boolean Variables
+- for Loop
+- if...else
+- break
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 15
 
