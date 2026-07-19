@@ -255,25 +255,15 @@ for (let i = 0; i < storedPasswords.length; i++) {
     }
 
 }
-
-// Display Updated Password List
-
-console.log("\nStored Passwords After Update:");
-
-for (let i = 0; i < storedPasswords.length; i++) {
-
-    console.log(
-        (i + 1) + ". " + storedPasswords[i]
-    );
-
-}
-
 // Display Update Status
 
 if (updated) {
-
+    // Display Updated Password List
+    console.log("\nStored Passwords After Update:");
+    for (let i = 0; i < storedPasswords.length; i++) {
+        console.log( (i + 1) + ". " + storedPasswords[i] );
+    }
     console.log("\nPassword Update Successful.");
-
 } else {
 
     console.log("\nPassword Update Failed.");
