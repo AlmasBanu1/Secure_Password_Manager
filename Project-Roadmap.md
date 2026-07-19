@@ -277,13 +277,26 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🛠 Upcoming Milestones
+## ✅ Version 15
 
-## ⬜ Version 15
+### Features
+- Delete an existing password
+- Manual left-shift deletion
+- Remove duplicate last element using pop()
+- Display updated password list
 
-Delete stored passwords.
+### JavaScript Concepts Used
+- Arrays
+- Array Indexing
+- Nested for Loops
+- Linear Search
+- Boolean Variables
+- pop()
+- break
 
 ---
+
+# 🛠 Upcoming Milestones
 
 ## ⬜ Version 16
 
