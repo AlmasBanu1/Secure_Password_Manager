@@ -12,7 +12,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ## ✅ Version 1
 
-**Feature**
+**Features**
 - Basic password strength validation
 
 **JavaScript Concepts Used**
@@ -59,6 +59,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Boolean flags
 
 ---
+
 ## ✅ Version 5
 
 **Features**
@@ -103,7 +104,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Loops
 - Character range comparison
 - Boolean flags
-- Conditional statements (`if`, `else if`, `else`)
+- Conditional statements
 - Score calculation
 
 ---
@@ -118,230 +119,349 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Store generated characters inside an array
 
 **JavaScript Concepts Used**
-- Strings
-- String indexing
 - Arrays
-- `Math.random()`
-- `Math.floor()`
+- Strings
 - Random number generation
-- Variables
-- Array initialization
+- Math functions
 
 ---
 
 ## ✅ Version 9
 
 **Features**
-- Shuffle generated password characters using random swaps
-- Build the final password string from shuffled characters
-- Generate a randomized 4-character password
+- Shuffle password characters
+- Build final password
+- Generate randomized password
 
 **JavaScript Concepts Used**
 - Arrays
-- Array indexing
-- `for` loops
-- Variables
-- Temporary variable (`temp`)
-- Random index generation
-- Array element swapping
+- Swapping
+- Temporary variables
 - String concatenation
-- Accumulator pattern
 
 ---
 
 ## ✅ Version 10
 
 **Features**
-- Generate passwords of custom length
-- Generate one mandatory uppercase letter
-- Generate one mandatory lowercase letter
-- Generate one mandatory number
-- Generate one mandatory special character
-- Generate remaining characters randomly from all character groups
-- Shuffle all generated password characters
-- Build the final password string
-- Validate minimum password length
+- Custom password length
+- Mandatory character rules
+- Input validation
 
 **JavaScript Concepts Used**
 - Arrays
-- Array indexing
-- `push()`
-- `for` loops
-- Variables
-- Strings
-- String indexing
-- `Math.random()`
-- `Math.floor()`
-- Random number generation
-- Conditional statements (`if`, `else`)
-- Array element swapping
-- String concatenation
-- Accumulator pattern
+- push()
+- Conditions
+- Loops
 
 ---
 
 ## ✅ Version 11
 
 **Features**
-- Refactor password generation using reusable functions
-- Create a reusable function to pick one random character from any character set
-- Create a reusable function to shuffle any array
-- Create a reusable function to build the final password string
-- Improve code organization through modular programming
-- Improve code readability and maintainability
+- Refactor into reusable helper functions
 
 **JavaScript Concepts Used**
-- Function declaration
-- Function parameters
-- Function calls
-- `return`
-- Local variables
-- Arrays
-- Array indexing
-- `push()`
-- `for` loops
-- Variables
-- Strings
-- String indexing
-- `Math.random()`
-- `Math.floor()`
-- Random number generation
-- Array element swapping
-- String concatenation
-- Code refactoring
+- Functions
+- Parameters
+- Return
 - Modular programming
+- Code refactoring
 
 ---
 
 ## ✅ Version 12
 
 **Features**
-- Refactor password generation into `generatePassword()`
-- Reuse helper functions
-- Store multiple generated passwords using arrays
-- Display the last generated password
-- Display all stored passwords
-- Display the total number of stored passwords
+- Generate multiple passwords
+- Store passwords
+- Display passwords
 
 **JavaScript Concepts Used**
-- Functions
-- Function composition
 - Arrays
-- `push()`
-- `for` loops
-- Array indexing
-- `length`
-- `return`
-- Guard clause
-- Variable scope
-- Refactoring
-- Code reusability
+- Functions
+- push()
+- length
 
 ---
 
 ## ✅ Version 13
 
 **Features**
-- Search stored passwords
-- Implement Linear Search
-- Stop searching using `break`
-- Display search result
+- Search password
+- Linear Search
 
 **JavaScript Concepts Used**
 - Arrays
 - Linear Search
+- break
 - Boolean variables
-- `for` loop
-- `if...else`
-- Comparison (`===`)
-- `break`
 
 ---
 
 ## ✅ Version 14
 
-### Features
-- Update an existing password
-- Search using Linear Search
-- Replace password using array indexing
-- Display updated password list
+**Features**
+- Update password
 
-### JavaScript Concepts Used
+**JavaScript Concepts Used**
 - Arrays
-- Array Indexing
 - Linear Search
-- Boolean Variables
-- for Loop
-- if...else
+- Array indexing
 - break
 
 ---
 
 ## ✅ Version 15
 
-### Features
-- Delete an existing password
+**Features**
+- Delete password
 - Manual left-shift deletion
-- Remove duplicate last element using pop()
-- Display updated password list
 
-### JavaScript Concepts Used
-- Arrays
-- Array Indexing
-- Nested for Loops
-- Linear Search
-- Boolean Variables
+**JavaScript Concepts Used**
+- Nested loops
 - pop()
-- break
+- Linear Search
 
 ---
 
-# 🛠 Upcoming Milestones
+# 🚀 Upcoming Milestones
+
+---
 
 ## ⬜ Version 16
 
-Store passwords in files.
+### Refactor Search Module
+
+**Features**
+- Create reusable `searchPassword()` function
+- Return search result
+- Improve modularity
+
+**JavaScript Concepts**
+- Function design
+- Parameters
+- Return values
+- Code reusability
 
 ---
 
 ## ⬜ Version 17
 
-Encrypt passwords.
+### Refactor Display Module
+
+**Features**
+- Create reusable `displayPasswords()` function
+- Eliminate repeated display loops
+
+**JavaScript Concepts**
+- Functions
+- Reusability
+- Clean code
 
 ---
 
 ## ⬜ Version 18
 
-Build a Command Line Interface (CLI).
+### Refactor Update Module
+
+**Features**
+- Create reusable `updatePassword()` function
+
+**JavaScript Concepts**
+- Function composition
+- Modular programming
 
 ---
 
 ## ⬜ Version 19
 
-Build a frontend interface.
+### Refactor Delete Module
+
+**Features**
+- Create reusable `deletePassword()` function
+
+**JavaScript Concepts**
+- Modular programming
+- Code organization
 
 ---
 
 ## ⬜ Version 20
 
-Connect with a backend.
+### Refactor Generate Module
+
+**Features**
+- Create reusable `generatePasswords()` function
+- Improve overall project architecture
+
+**JavaScript Concepts**
+- Modular design
+- Function composition
+- Project architecture
 
 ---
 
 ## ⬜ Version 21
 
-Connect with a database.
+### JavaScript Built-in Search Methods
+
+**Features**
+- Replace manual search where appropriate
+- Compare manual algorithms with built-in methods
+
+**JavaScript Concepts**
+- includes()
+- indexOf()
+- find()
+- findIndex()
 
 ---
 
 ## ⬜ Version 22
 
-Final project refactoring and documentation.
+### JavaScript Built-in Update & Delete Methods
+
+**Features**
+- Simplify update and delete operations
+- Compare manual deletion with built-in implementation
+
+**JavaScript Concepts**
+- splice()
+- filter()
+- map()
+
+---
+
+## ⬜ Version 23
+
+### Build Command Line Interface (CLI)
+
+**Features**
+- Interactive menu
+- User input
+- Execute operations through menu
+
+**JavaScript Concepts**
+- User interaction
+- Program flow
+- Menu-driven applications
+
+---
+
+## ⬜ Version 24
+
+### Store Passwords in Files
+
+**Features**
+- Save passwords
+- Load passwords
+
+**JavaScript Concepts**
+- File handling
+- JSON
+
+---
+
+## ⬜ Version 25
+
+### Encrypt Passwords
+
+**Features**
+- Encrypt before saving
+- Decrypt when loading
+
+**JavaScript Concepts**
+- Encryption basics
+- Security principles
+
+---
+
+## ⬜ Version 26
+
+### Build Frontend Interface
+
+**Features**
+- User Interface
+- Forms
+- Buttons
+- Password list
+
+**JavaScript Concepts**
+- DOM Manipulation
+- Events
+
+---
+
+## ⬜ Version 27
+
+### Connect Frontend with Backend
+
+**Features**
+- API communication
+- Send and receive password data
+
+**JavaScript Concepts**
+- HTTP Requests
+- Fetch API
+
+---
+
+## ⬜ Version 28
+
+### Connect Database
+
+**Features**
+- Store passwords permanently
+- Retrieve passwords
+
+**Technologies**
+- Node.js
+- Express
+- MongoDB / MySQL
+
+---
+
+## ⬜ Version 29
+
+### Final Project Refactoring
+
+**Features**
+- Folder structure
+- Separate modules
+- Error handling
+- Code cleanup
+- Project optimization
+
+---
+
+## ⬜ Version 30
+
+### Final Documentation & Deployment
+
+**Features**
+- README
+- Screenshots
+- Installation Guide
+- Deployment
+- Portfolio Ready Project
 
 ---
 
 # 🎯 Final Goal
 
-Develop a complete Secure Password Manager that demonstrates JavaScript fundamentals, problem-solving skills, clean coding practices, and gradual feature development.
+Develop a complete Secure Password Manager that demonstrates:
 
-This project serves as both a learning journey and a portfolio project.
+- JavaScript Fundamentals
+- Problem Solving
+- Data Structures & Algorithms
+- Clean Coding Practices
+- Modular Programming
+- Software Engineering Principles
+- File Handling
+- Security Concepts
+- Frontend Development
+- Backend Development
+- Database Integration
+
+This project will serve as both a complete learning journey and a professional portfolio project.
