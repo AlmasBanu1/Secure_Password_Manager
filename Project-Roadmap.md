@@ -225,26 +225,25 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
+## ✅ Version 16
 
----
-
-## ⬜ Version 16
-
-### Refactor Search Module
-
-**Features**
+** Features **
 - Create reusable `searchPassword()` function
+- Search passwords using function calls
 - Return search result
-- Improve modularity
+- Improve code modularity
 
-**JavaScript Concepts**
-- Function design
-- Parameters
-- Return values
-- Code reusability
+** JavaScript Concepts Used **
+- Function Design
+- Function Parameters
+- Return Values
+- Boolean Return
+- Code Reusability
+- Modular Programming
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 17
 
