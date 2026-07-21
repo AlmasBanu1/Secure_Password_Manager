@@ -261,20 +261,25 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
+## ✅ Version 18
 
-## ⬜ Version 18
-
-### Refactor Update Module
-
-**Features**
+** Features **
 - Create reusable `updatePassword()` function
+- Update passwords using function calls
+- Return update status
+- Improve code modularity
 
-**JavaScript Concepts**
-- Function composition
-- Modular programming
+** JavaScript Concepts Used **
+- Function Design
+- Function Parameters
+- Function Composition
+- Boolean Return
+- Code Reusability
+- Modular Programming
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 19
 
