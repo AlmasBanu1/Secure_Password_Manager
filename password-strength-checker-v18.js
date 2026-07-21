@@ -11,11 +11,7 @@
 // - Update passwords using a reusable function
 // ==========================================================
 
-
-
-// ==========================================================
 // Helper Function - Pick One Random Character
-// ==========================================================
 
 function pickOneRandomCharacter(characterSet) {
 
@@ -25,11 +21,7 @@ function pickOneRandomCharacter(characterSet) {
 
 }
 
-
-
-// ==========================================================
 // Helper Function - Shuffle Array
-// ==========================================================
 
 function shuffleArray(array) {
 
@@ -49,11 +41,7 @@ function shuffleArray(array) {
 
 }
 
-
-
-// ==========================================================
 // Helper Function - Build Password
-// ==========================================================
 
 function buildPassword(array) {
 
@@ -69,11 +57,7 @@ function buildPassword(array) {
 
 }
 
-
-
-// ==========================================================
 // Generate Password
-// ==========================================================
 
 function generatePassword() {
 
@@ -154,11 +138,7 @@ function generatePassword() {
 
 }
 
-
-
-// ==========================================================
 // Search Password
-// ==========================================================
 
 function searchPassword(passwords, target) {
 
@@ -180,11 +160,7 @@ function searchPassword(passwords, target) {
 
 }
 
-
-
-// ==========================================================
 // Display Passwords
-// ==========================================================
 
 function displayPasswords(passwords) {
 
@@ -200,11 +176,7 @@ function displayPasswords(passwords) {
 
 }
 
-
-
-// ==========================================================
 // Update Password
-// ==========================================================
 
 function updatePassword(passwords, target, newPassword) {
 
@@ -228,12 +200,7 @@ function updatePassword(passwords, target, newPassword) {
 
 }
 
-
-
-// ==========================================================
 // Main Program
-// ==========================================================
-
 // Store Passwords
 
 let storedPasswords = [];
@@ -246,11 +213,7 @@ for (let i = 0; i < 5; i++) {
 
 }
 
-
-
-// ==========================================================
 // Display Password Information
-// ==========================================================
 
 console.log(
     "Last Generated Password:",
@@ -264,11 +227,7 @@ console.log(
     storedPasswords.length
 );
 
-
-
-// ==========================================================
 // Search Password
-// ==========================================================
 
 let target = storedPasswords[2];
 
@@ -286,11 +245,7 @@ if (found) {
 
 }
 
-
-
-// ==========================================================
 // Update Password
-// ==========================================================
 
 let targetToUpdate = storedPasswords[2];
 
