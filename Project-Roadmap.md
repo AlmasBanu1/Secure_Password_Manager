@@ -243,22 +243,25 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
+## ✅ Version 17
 
-## ⬜ Version 17
-
-### Refactor Display Module
-
-**Features**
+** Features **
 - Create reusable `displayPasswords()` function
+- Display all stored passwords using function calls
 - Eliminate repeated display loops
+- Improve code readability and modularity
 
-**JavaScript Concepts**
-- Functions
-- Reusability
-- Clean code
+** JavaScript Concepts Used **
+- Function Design
+- Function Parameters
+- Code Reusability
+- Clean Code
+- Refactoring
+- Modular Programming
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 18
 
