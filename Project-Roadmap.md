@@ -297,22 +297,29 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 20
-
-### Refactor Generate Module
+## ✅ Version 20
 
 **Features**
 - Create reusable `generatePasswords()` function
+- Generate multiple passwords using function calls
+- Return an array of generated passwords
+- Replace manual password generation loop
 - Improve overall project architecture
 
-**JavaScript Concepts**
-- Modular design
-- Function composition
-- Project architecture
+**JavaScript Concepts Used**
+- Function Design
+- Function Parameters
+- Function Composition
+- Arrays
+- Array `push()`
+- `return`
+- Code Reusability
+- Modular Programming
+- Project Architecture
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 21
 
