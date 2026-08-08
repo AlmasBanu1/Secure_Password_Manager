@@ -206,17 +206,19 @@ function searchPassword(passwords, target) {
 
 // Display Passwords
 
+// Display Passwords
+
 function displayPasswords(passwords) {
 
     console.log("\nStored Passwords:");
 
-    for (let i = 0; i < passwords.length; i++) {
+    passwords.forEach(function(password, index) {
 
         console.log(
-            (i + 1) + ". " + passwords[i]
+            (index + 1) + ". " + password
         );
 
-    }
+    });
 
 }
 
