@@ -200,6 +200,17 @@ function findPassword(passwords, target) {
     });
 
 }
+// Find Password Index Using Built-in findIndex()
+
+function findPasswordIndex(passwords, target) {
+
+    return passwords.findIndex(function(password) {
+
+        return password === target;
+
+    });
+
+}
 // Display Passwords
 
 // Display Passwords
