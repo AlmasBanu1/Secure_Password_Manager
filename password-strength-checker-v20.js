@@ -182,28 +182,13 @@ function generatePasswords(count) {
 
 // Search Password
 
+// Search Password Using Built-in includes()
+
 function searchPassword(passwords, target) {
 
-    let found = false;
-
-    // Search Password Using Linear Search
-
-    for (let i = 0; i < passwords.length; i++) {
-
-        if (passwords[i] === target) {
-
-            found = true;
-
-            break;
-
-        }
-
-    }
-
-    return found;
+    return passwords.includes(target);
 
 }
-
 // Display Passwords
 
 // Display Passwords
