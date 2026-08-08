@@ -366,9 +366,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 22
+## ✅ Version 22
 
 ### Build Command Line Interface (CLI)
 
@@ -377,20 +375,40 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Interactive menu
 - User input
 - Execute operations through menu
-- Add password operation
+- Generate password operation
+- Display password operation
 - Search password operation
 - Update password operation
 - Delete password operation
+- Invalid choice handling
 - Exit option
+- Repeating menu-driven program flow
 
-**JavaScript Concepts**
+**JavaScript Concepts Used**
 
+- Node.js `readline`
 - User interaction
+- User input
 - Program flow
+- Conditional statements
 - Menu-driven applications
+- Callback functions
+- Recursive function calls for menu repetition
+- Function composition
+- Code reusability
 
+**CLI Operations**
+
+1. Generate Password
+2. Display Passwords
+3. Search Password
+4. Update Password
+5. Delete Password
+6. Exit
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 23
 
@@ -407,7 +425,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - File handling
 - JSON
 - Node.js file system
-
 
 ---
 
@@ -427,7 +444,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Decryption
 - Security principles
 - Cryptography fundamentals
-
 
 ---
 
@@ -451,7 +467,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Forms
 - Event Handling
 
-
 ---
 
 ## ⬜ Version 26
@@ -472,7 +487,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - REST API
 - Client-Server Communication
 
-
 ---
 
 ## ⬜ Version 27
@@ -491,7 +505,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Node.js
 - Express
 - MongoDB / MySQL
-
 
 ---
 
@@ -517,7 +530,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Code Optimization
 - Software Engineering Practices
 
-
 ---
 
 ## ⬜ Version 29
@@ -540,7 +552,6 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - Validation
 - Error Handling
 - Security Testing
-
 
 ---
 
@@ -567,7 +578,6 @@ A complete professional Secure Password Manager suitable for:
 - Resume Project
 - Internship Applications
 - Placement Interviews
-
 
 ---
 
