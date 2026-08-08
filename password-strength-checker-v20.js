@@ -1,16 +1,20 @@
 // ==========================================================
 // Secure Password Manager - Version 20
 // ----------------------------------------------------------
-// This version introduces reusable multiple password generation.
+// This version introduces reusable multiple password
+// generation and integrates JavaScript built-in array
+// methods for searching, displaying, and updating passwords.
 //
 // Features:
 // - Generate a single secure password
 // - Generate multiple secure passwords
 // - Store generated passwords
-// - Search passwords using a reusable function
-// - Display passwords using a reusable function
-// - Update passwords using a reusable function
-// - Delete passwords using a reusable function
+// - Search passwords using includes()
+// - Find passwords using find()
+// - Find password indexes using findIndex()
+// - Display passwords using forEach()
+// - Update passwords using findIndex()
+// - Delete passwords using manual array manipulation
 // ==========================================================
 
 // Helper Function - Pick One Random Character
@@ -62,14 +66,14 @@ function buildPassword(array) {
 
 }
 
-// Generate Password
+// Generate Single Password
 
 function generatePassword() {
 
     // Password Configuration
 
     let passwordLength = 10;
-
+    
     // Input Validation
 
     if (passwordLength < 4) {
@@ -96,7 +100,7 @@ function generatePassword() {
     let specialCharacters =
         "!@#$%^&*";
 
-    // Password Storage
+    // Password Character Storage
 
     let passwordCharacters = [];
 
@@ -148,11 +152,11 @@ function generatePassword() {
 
     }
 
-    // Shuffle Password
+    // Shuffle Password Characters
 
     shuffleArray(passwordCharacters);
 
-    // Build Final Password
+    // Build and Return Final Password
 
     return buildPassword(passwordCharacters);
 
@@ -174,13 +178,11 @@ function generatePasswords(count) {
 
     }
 
-    // Return All Generated Passwords
+    // Return Generated Password Array
 
     return passwords;
 
 }
-
-// Search Password
 
 // Search Password Using Built-in includes()
 
@@ -189,6 +191,7 @@ function searchPassword(passwords, target) {
     return passwords.includes(target);
 
 }
+
 // Find Password Using Built-in find()
 
 function findPassword(passwords, target) {
@@ -200,6 +203,7 @@ function findPassword(passwords, target) {
     });
 
 }
+
 // Find Password Index Using Built-in findIndex()
 
 function findPasswordIndex(passwords, target) {
@@ -211,9 +215,8 @@ function findPasswordIndex(passwords, target) {
     });
 
 }
-// Display Passwords
 
-// Display Passwords
+// Display Passwords Using Built-in forEach()
 
 function displayPasswords(passwords) {
 
@@ -228,8 +231,6 @@ function displayPasswords(passwords) {
     });
 
 }
-
-// Update Password
 
 // Update Password Using findIndex()
 
@@ -249,7 +250,7 @@ function updatePassword(passwords, target, newPassword) {
 
 }
 
-// Delete Password
+// Delete Password Using Manual Array Manipulation
 
 function deletePassword(passwords, target) {
 
@@ -273,6 +274,7 @@ function deletePassword(passwords, target) {
 
             passwords.pop();
 
+
             deleted = true;
 
             break;
@@ -290,7 +292,6 @@ function deletePassword(passwords, target) {
 
 let storedPasswords = generatePasswords(5);
 
-// Display Password Details
 // Display Last Generated Password
 
 console.log(
@@ -310,7 +311,7 @@ console.log(
 );
 
 // Search Existing Password
-// Password to Search
+
 let target = storedPasswords[2];
 
 console.log(
@@ -324,7 +325,6 @@ let found = searchPassword(
 );
 
 if (found) {
-
     console.log("Password Found.");
 
 } else {
@@ -334,11 +334,9 @@ if (found) {
 }
 
 // Update Existing Password
-// Password to Update
+
 let targetToUpdate =
     storedPasswords[2];
-
-// New Password
 
 let newPassword =
     "UpdatedPassword123!";
@@ -370,7 +368,6 @@ if (updated) {
 }
 
 // Delete Updated Password
-// Password to Delete
 
 let targetToDelete =
     newPassword;
