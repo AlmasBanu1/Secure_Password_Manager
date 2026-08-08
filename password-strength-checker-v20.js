@@ -231,29 +231,21 @@ function displayPasswords(passwords) {
 
 // Update Password
 
+// Update Password Using findIndex()
+
 function updatePassword(passwords, target, newPassword) {
 
-    let updated = false;
+    let index = findPasswordIndex(passwords, target);
 
-    // Search Password to Update
+    if (index !== -1) {
 
-    for (let i = 0; i < passwords.length; i++) {
+        passwords[index] = newPassword;
 
-        if (passwords[i] === target) {
-
-            // Replace Old Password
-
-            passwords[i] = newPassword;
-
-            updated = true;
-
-            break;
-
-        }
+        return true;
 
     }
 
-    return updated;
+    return false;
 
 }
 
