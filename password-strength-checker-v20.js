@@ -189,6 +189,17 @@ function searchPassword(passwords, target) {
     return passwords.includes(target);
 
 }
+// Find Password Using Built-in find()
+
+function findPassword(passwords, target) {
+
+    return passwords.find(function(password) {
+
+        return password === target;
+
+    });
+
+}
 // Display Passwords
 
 // Display Passwords
