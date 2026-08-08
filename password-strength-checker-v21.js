@@ -1,0 +1,378 @@
+// ==========================================================
+// Secure Password Manager - Version 21
+// ----------------------------------------------------------
+// This version introduces built-in array methods for
+// password update and deletion operations.
+//
+// Features:
+// - Generate multiple secure passwords
+// - Search passwords using built-in methods
+// - Display passwords using forEach()
+// - Update passwords using findIndex()
+// - Delete passwords using findIndex() and splice()
+// ==========================================================
+
+// Helper Function - Pick One Random Character
+
+function pickOneRandomCharacter(characterSet) {
+
+    let randomIndex =
+        Math.floor(Math.random() * characterSet.length);
+
+    return characterSet[randomIndex];
+
+}
+
+// Helper Function - Shuffle Password Characters
+
+function shuffleArray(array) {
+
+    for (let i = 0; i < array.length; i++) {
+
+        let randomIndex1 =
+            Math.floor(Math.random() * array.length);
+
+        let randomIndex2 =
+            Math.floor(Math.random() * array.length);
+
+        let temp = array[randomIndex1];
+
+        array[randomIndex1] = array[randomIndex2];
+
+        array[randomIndex2] = temp;
+
+    }
+
+}
+
+// Helper Function - Build Final Password
+
+function buildPassword(array) {
+
+    let generatedPassword = "";
+
+    for (let i = 0; i < array.length; i++) {
+
+        generatedPassword += array[i];
+
+    }
+
+    return generatedPassword;
+
+}
+
+// Generate Single Password
+
+function generatePassword() {
+
+    // Password Configuration
+
+    let passwordLength = 10;
+    
+    // Input Validation
+
+    if (passwordLength < 4) {
+
+        console.log(
+            "Invalid Password Length! Password must contain at least 4 characters."
+        );
+
+        return;
+
+    }
+
+    // Character Groups
+
+    let uppercaseLetters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    let lowercaseLetters =
+        "abcdefghijklmnopqrstuvwxyz";
+
+    let numbers =
+        "0123456789";
+
+    let specialCharacters =
+        "!@#$%^&*";
+
+    // Password Character Storage
+
+    let passwordCharacters = [];
+
+    // Generate Mandatory Characters
+
+    passwordCharacters.push(
+        pickOneRandomCharacter(uppercaseLetters)
+    );
+
+    passwordCharacters.push(
+        pickOneRandomCharacter(lowercaseLetters)
+    );
+
+    passwordCharacters.push(
+        pickOneRandomCharacter(numbers)
+    );
+
+    passwordCharacters.push(
+        pickOneRandomCharacter(specialCharacters)
+    );
+
+    // Store All Character Groups
+
+    let allCharacterGroups = [
+
+        uppercaseLetters,
+        lowercaseLetters,
+        numbers,
+        specialCharacters
+
+    ];
+
+    // Generate Remaining Characters
+
+    let remainingCharacters =
+        passwordLength - 4;
+
+    for (let i = 0; i < remainingCharacters; i++) {
+
+        let randomGroupIndex =
+            Math.floor(Math.random() * allCharacterGroups.length);
+
+        let selectedGroup =
+            allCharacterGroups[randomGroupIndex];
+
+        passwordCharacters.push(
+            pickOneRandomCharacter(selectedGroup)
+        );
+
+    }
+
+    // Shuffle Password Characters
+
+    shuffleArray(passwordCharacters);
+
+    // Build and Return Final Password
+
+    return buildPassword(passwordCharacters);
+
+}
+
+// Generate Multiple Passwords
+
+function generatePasswords(count) {
+
+    // Store Generated Passwords
+
+    let passwords = [];
+
+    // Generate Required Number of Passwords
+
+    for (let i = 0; i < count; i++) {
+
+        passwords.push(generatePassword());
+
+    }
+
+    // Return Generated Password Array
+
+    return passwords;
+
+}
+
+// Search Password Using Built-in includes()
+
+function searchPassword(passwords, target) {
+
+    return passwords.includes(target);
+
+}
+
+// Find Password Using Built-in find()
+
+function findPassword(passwords, target) {
+
+    return passwords.find(function(password) {
+
+        return password === target;
+
+    });
+
+}
+
+// Find Password Index Using Built-in findIndex()
+
+function findPasswordIndex(passwords, target) {
+
+    return passwords.findIndex(function(password) {
+
+        return password === target;
+
+    });
+
+}
+
+// Display Passwords Using Built-in forEach()
+
+function displayPasswords(passwords) {
+
+    console.log("\nStored Passwords:");
+
+    passwords.forEach(function(password, index) {
+
+        console.log(
+            (index + 1) + ". " + password
+        );
+
+    });
+
+}
+
+// Update Password Using findIndex()
+
+function updatePassword(passwords, target, newPassword) {
+
+    let index = findPasswordIndex(passwords, target);
+
+    if (index !== -1) {
+
+        passwords[index] = newPassword;
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+// Delete Password
+// Delete Password Using findIndex() and splice()
+function deletePassword(passwords, target) {
+
+    let index = findPasswordIndex(passwords, target);
+
+    if (index !== -1) {
+
+        passwords.splice(index, 1);
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+// Main Program
+// Generate and Store Multiple Passwords
+
+let storedPasswords = generatePasswords(5);
+
+// Display Last Generated Password
+
+console.log(
+    "Last Generated Password:",
+    storedPasswords[storedPasswords.length - 1]
+);
+
+// Display All Stored Passwords
+
+displayPasswords(storedPasswords);
+
+// Display Total Passwords
+
+console.log(
+    "\nTotal Stored Passwords:",
+    storedPasswords.length
+);
+
+// Search Existing Password
+
+let target = storedPasswords[2];
+
+console.log(
+    "\nSearching For:",
+    target
+);
+
+let found = searchPassword(
+    storedPasswords,
+    target
+);
+
+if (found) {
+    console.log("Password Found.");
+
+} else {
+
+    console.log("Password Not Found.");
+
+}
+
+// Update Existing Password
+
+let targetToUpdate =
+    storedPasswords[2];
+
+let newPassword =
+    "UpdatedPassword123!";
+
+let updated = updatePassword(
+
+    storedPasswords,
+    targetToUpdate,
+    newPassword
+
+);
+
+// Display Update Result
+
+if (updated) {
+
+    console.log(
+        "\nPassword Updated Successfully."
+    );
+
+    displayPasswords(storedPasswords);
+
+} else {
+
+    console.log(
+        "\nPassword Not Found."
+    );
+
+}
+
+// Delete Updated Password
+
+let targetToDelete =
+    newPassword;
+
+let deleted = deletePassword(
+
+    storedPasswords,
+    targetToDelete
+
+);
+
+// Display Delete Result
+
+if (deleted) {
+
+    console.log(
+        "\nPassword Deleted Successfully."
+    );
+
+    displayPasswords(storedPasswords);
+
+} else {
+
+    console.log(
+        "\nPassword Not Found."
+    );
+
+    console.log(
+        "No Changes Were Made."
+    );
+
+}

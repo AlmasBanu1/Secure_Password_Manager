@@ -341,26 +341,32 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 21
+## ✅ Version 21
 
 ### JavaScript Built-in Update & Delete Methods
 
 **Features**
 
-- Simplify password update operations
+- Delete passwords using `splice()`
+- Locate passwords using `findIndex()`
 - Simplify password deletion
-- Replace manual array manipulation where appropriate
-- Compare manual and built-in approaches
+- Remove manual array shifting logic
+- Compare manual deletion with built-in implementation
+- Keep password update logic using `findIndex()`
 
-**JavaScript Concepts**
+**JavaScript Concepts Used**
 
+- `findIndex()`
 - `splice()`
-- `filter()`
-- `map()`
+- Array indexing
+- Boolean return values
+- Function composition
+- Code reusability
+- Modular programming
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 22
 
