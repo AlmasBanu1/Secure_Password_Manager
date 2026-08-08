@@ -408,25 +408,43 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 23
+## ✅ Version 23
 
 ### Store Passwords in Files
 
 **Features**
 
-- Save passwords
-- Load passwords
-- Read stored password data
+- Load passwords from a JSON file
+- Save passwords to a JSON file
+- Persist passwords between program executions
+- Save newly generated passwords
+- Save updated passwords
+- Save deleted-password changes
+- Handle missing JSON file
+- Handle empty JSON file
+- Handle invalid JSON data
 
-**JavaScript Concepts**
+**JavaScript Concepts Used**
 
+- Node.js `fs` module
 - File handling
 - JSON
-- Node.js file system
+- `JSON.parse()`
+- `JSON.stringify()`
+- `fs.existsSync()`
+- `fs.readFileSync()`
+- `fs.writeFileSync()`
+- `try...catch`
+- Persistent data storage
+- Error handling
+
+**File**
+
+- `passwords.json`
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 24
 
