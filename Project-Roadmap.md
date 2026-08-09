@@ -444,9 +444,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 24
+## ✅ Version 24
 
 ### Encrypt Passwords
 
@@ -454,18 +452,60 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 - Encrypt passwords before saving
 - Decrypt passwords when loading
+- Use AES-256-CBC encryption
+- Generate a random IV for every encryption
+- Store IV with encrypted password
 - Protect stored password data
+- Store encryption key in environment variables
+- Keep `.env` and `passwords.json` out of Git
 
-**JavaScript Concepts**
+**JavaScript Concepts Used**
 
-- Encryption basics
+- Node.js `crypto` module
+- AES-256-CBC
+- Encryption
 - Decryption
-- Security principles
+- Random initialization vectors (IV)
+- `crypto.randomBytes()`
+- `crypto.createCipheriv()`
+- `crypto.createDecipheriv()`
+- `crypto.scryptSync()`
+- Environment variables
+- `dotenv`
+- `.gitignore`
 - Cryptography fundamentals
+- Security principles
+
+**Files**
+
+- `password-strength-checker-v24.js`
+- `.env`
+- `passwords.json`
 
 ---
 
+# 🚀 Upcoming Milestones
+
 ## ⬜ Version 25
+
+### Improve Password Security
+
+**Planned Features**
+
+- Improve encryption key management
+- Strengthen password handling
+- Review encryption implementation
+- Improve input validation
+- Security-focused error handling
+
+**JavaScript Concepts**
+
+- Advanced cryptography
+- Secure key management
+- Input validation
+- Security best practices
+
+## ⬜ Version 26
 
 ### Build Frontend Interface
 
@@ -487,7 +527,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-## ⬜ Version 26
+## ⬜ Version 27
 
 ### Connect Frontend with Backend
 
@@ -507,7 +547,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-## ⬜ Version 27
+## ⬜ Version 28
 
 ### Connect Database
 
@@ -526,7 +566,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-## ⬜ Version 28
+## ⬜ Version 29
 
 ### Final Project Refactoring
 
@@ -550,7 +590,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-## ⬜ Version 29
+## ⬜ Version 30
 
 ### Testing & Security Improvements
 
@@ -573,7 +613,7 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-## ⬜ Version 30
+## ⬜ Version 31
 
 ### Final Documentation & Deployment
 
