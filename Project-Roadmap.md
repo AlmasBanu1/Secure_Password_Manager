@@ -484,26 +484,57 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 
 ---
 
-# 🚀 Upcoming Milestones
-
-## ⬜ Version 25
+## Version 25
 
 ### Improve Password Security
 
-**Planned Features**
+**Features**
 
-- Improve encryption key management
-- Strengthen password handling
-- Review encryption implementation
-- Improve input validation
-- Security-focused error handling
+- Upgrade encryption from AES-256-CBC to AES-256-GCM
+- Encrypt passwords before saving
+- Decrypt passwords when loading
+- Generate a random salt for every password
+- Generate a random IV for every encryption
+- Store authentication tag with encrypted password
+- Detect modified or tampered encrypted data
+- Detect incorrect encryption keys
+- Protect stored password data
+- Store encryption key in environment variables
+- Handle encryption and decryption errors
+- Keep .env and password files out of Git
 
-**JavaScript Concepts**
+**JavaScript Concepts Used**
 
-- Advanced cryptography
-- Secure key management
-- Input validation
+- Node.js crypto module
+- AES-256-GCM
+- Authenticated encryption
+- Encryption
+- Decryption
+- Random salt
+- Random initialization vectors (IV)
+- Authentication tags
+- crypto.randomBytes()
+- crypto.createCipheriv()
+- crypto.createDecipheriv()
+- cipher.getAuthTag()
+- decipher.setAuthTag()
+- crypto.scryptSync()
+- Environment variables
+- dotenv
+- .gitignore
+- Cryptography fundamentals
+- Data integrity
+- Tamper detection
 - Security best practices
+
+**Files**
+
+- password-strength-checker-v25.js
+- .env
+- passwords.json
+- passwords-v24-backup.json
+
+# 🚀 Upcoming Milestones
 
 ## ⬜ Version 26
 
