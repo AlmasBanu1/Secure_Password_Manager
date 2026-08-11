@@ -534,139 +534,88 @@ Each version introduces one or more new JavaScript concepts. The project grows a
 - passwords.json
 - passwords-v24-backup.json
 
-# 🚀 Upcoming Milestones
+---
 
-## ⬜ Version 26
+## Version 26
 
-### Build Frontend Interface
+Build Frontend Interface
 
 **Features**
 
-- User Interface
-- Password input form
-- Buttons
-- Password list
-- Search interface
-- Update and delete controls
+- Password generation and input
+- Password list management
+- Search and highlighting
+- Show/hide and copy passwords
+- Password strength detection
+- Update and delete passwords
+- Input validation and user feedback
+- Responsive light UI
 
-**JavaScript Concepts**
+**Concepts**
 
 - DOM Manipulation
-- Events
-- Forms
-- Event Handling
+- Events & Event Handling
+- Arrays & Functions
+- Input Validation
+- Dynamic UI Updates
+- Clipboard API
+- Regular Expressions
+
+**Files**
+
+- index.html
+- style.css
+- script.js
 
 ---
 
-## ⬜ Version 27
+# 🚀 Upcoming Milestones
+## Version 27 — Backend/API Integration
 
-### Connect Frontend with Backend
+Connect V26 frontend to Node.js/Express
+REST API
+GET, POST, PUT, DELETE
+Connect frontend ↔ backend
+Keep V25 encryption on the backend
+Basic API error handling
 
-**Features**
+## Version 28 — Database & Persistent Storage
 
-- Connect frontend to backend
-- Send password data
-- Receive password data
-- Perform password operations through API
+Replace file-based storage with a database
+MongoDB or MySQL
+Create/read/update/delete password records
+Connect Express API to database
+Handle database connection/errors
 
-**JavaScript Concepts**
+## Version 29 — Authentication & Access Control
 
-- HTTP Requests
-- Fetch API
-- REST API
-- Client-Server Communication
+Master password
+Login/unlock system
+Authentication
+Sessions
+Protect password-management APIs
+Prevent unauthorized access
 
----
+## Version 30 — Security Hardening & Testing
 
-## ⬜ Version 28
+Input validation/sanitization
+Rate limiting
+Security headers
+CSRF protection where applicable
+Unit/API/integration testing
+Security testing
+Edge-case testing
 
-### Connect Database
+## Version 31 — Refactoring, Documentation & Deployment
 
-**Features**
-
-- Store passwords permanently
-- Retrieve passwords
-- Update stored passwords
-- Delete stored passwords
-
-**Technologies**
-
-- Node.js
-- Express
-- MongoDB / MySQL
-
----
-
-## ⬜ Version 29
-
-### Final Project Refactoring
-
-**Features**
-
-- Improve folder structure
-- Separate modules
-- Error handling
-- Code cleanup
-- Remove duplicate code
-- Improve security
-- Optimize project architecture
-
-**Concepts**
-
-- Modular Architecture
-- Error Handling
-- Clean Code
-- Code Optimization
-- Software Engineering Practices
-
----
-
-## ⬜ Version 30
-
-### Testing & Security Improvements
-
-**Features**
-
-- Input validation
-- Password validation
-- Error handling
-- Test password operations
-- Test file operations
-- Test database operations
-- Security review
-
-**Concepts**
-
-- Testing
-- Validation
-- Error Handling
-- Security Testing
-
----
-
-## ⬜ Version 31
-
-### Final Documentation & Deployment
-
-**Features**
-
-- README
-- Project screenshots
-- Installation Guide
-- Usage Guide
-- Project Architecture Documentation
-- Security Documentation
-- Deployment
-- Portfolio Ready Project
-
-**Final Outcome**
-
-A complete professional Secure Password Manager suitable for:
-
-- GitHub Portfolio
-- Resume Project
-- Internship Applications
-- Placement Interviews
+Clean project structure
+Modularize backend/frontend
+Remove duplicate code
+Performance/architecture cleanup
+README + installation/usage guide
+Architecture & security documentation
+Deployment
+Final portfolio-ready project
 
 ---
 
