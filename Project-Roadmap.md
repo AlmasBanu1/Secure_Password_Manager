@@ -640,61 +640,163 @@ Build Frontend Interface
 
 # 🚀 Upcoming Milestones
 
-## Version 29 — Authentication & Access Control
+# 🚀 Upcoming Milestones
 
-Master password
-Login/unlock system
-Authentication
-Sessions
-Protect password-management APIs
-Prevent unauthorized access
+## Version 29 — Authentication, Authorization & Vault Security
+
+Build the authentication and security layer on top of the V28 MongoDB backend.
+
+**Requirements**
+
+- User registration
+- User accounts
+- Master password
+- Secure master-password hashing
+- Login / unlock system
+- JWT-based authentication
+- Token/session management
+- Logout
+- User-specific password records
+- Authorization
+- Protect password-management APIs
+- Prevent unauthorized access
+- Prevent users from accessing another user's passwords
+- Encrypt stored passwords in the vault
+- Decrypt passwords only when authorized
+- Secure encryption/decryption flow
+- Authentication and authorization error handling
+
+**Main Concepts**
+
+- Authentication vs Authorization
+- Password hashing
+- JWT
+- Tokens
+- Encryption vs Hashing
+- Access control
+- Protected REST APIs
+- User-to-password relationships
+- Secure secret handling
+
+---
 
 ## Version 30 — Security Hardening & Testing
 
-Input validation/sanitization
-Rate limiting
-Security headers
-CSRF protection where applicable
-Unit/API/integration testing
-Security testing
-Edge-case testing
+Strengthen the complete application and verify that the security mechanisms actually work.
+
+**Requirements**
+
+- Input validation
+- Input sanitization where applicable
+- Rate limiting
+- Security headers
+- CSRF protection where applicable
+- Centralized API error handling
+- Consistent HTTP status codes
+- Authentication testing
+- Authorization testing
+- Unit testing
+- API testing
+- Integration testing
+- Security testing
+- Edge-case testing
+- Unauthorized-access testing
+- Cross-user access testing
+- Invalid/expired token testing
+- Password-vault security testing
+- Repeated-login/request testing
+- Malformed-input testing
+
+**Security Checks**
+
+- Unauthenticated users cannot access protected APIs
+- Users cannot access another user's passwords
+- Passwords are not stored as plaintext
+- Master passwords are not stored as plaintext
+- Invalid tokens are rejected
+- Expired/invalid authentication is rejected
+- Invalid input is rejected safely
+- Excessive requests are limited
+- Sensitive information is not unnecessarily exposed in API errors
+
+---
 
 ## Version 31 — Refactoring, Documentation & Deployment
 
-Clean project structure
-Modularize backend/frontend
-Remove duplicate code
-Performance/architecture cleanup
-README + installation/usage guide
-Architecture & security documentation
-Deployment
-Final portfolio-ready project
+Turn the project into a clean, maintainable and portfolio-ready application.
+
+**Requirements**
+
+- Clean project structure
+- Modularize backend
+- Modularize frontend
+- Separate routes/controllers/database logic where appropriate
+- Remove duplicate code
+- Improve naming and code organization
+- Basic performance/architecture cleanup
+- Environment configuration
+- `.env` secret management
+- `.env.example`
+- README
+- Installation guide
+- Usage guide
+- API documentation
+- Architecture documentation
+- Security documentation
+- Deployment
+- Production configuration
+- Final testing after deployment
+- Final portfolio preparation
+
+**Final Project Quality**
+
+- Clean code
+- Maintainable architecture
+- Secure configuration
+- Proper documentation
+- Working production deployment
+- Git/GitHub history
+- Portfolio-ready presentation
 
 ---
 
 # 🎯 Final Goal
 
-Develop a complete Secure Password Manager that demonstrates:
+The Secure Password Manager should demonstrate:
 
 - JavaScript Fundamentals
 - Problem Solving
-- Data Structures & Algorithms
-- Clean Coding Practices
+- Arrays & Objects
+- Functions
+- Built-in JavaScript Methods
+- DOM Manipulation
+- Event Handling
+- Async/Await
+- Fetch API
+- JSON
+- Node.js
+- Express.js
+- REST APIs
+- MongoDB
+- CRUD Operations
+- Authentication
+- Authorization
+- JWT
+- Password Hashing
+- Encryption & Decryption
+- Input Validation
+- Security Concepts
+- Error Handling
+- Testing
+- Git & GitHub
+- Environment Variables
+- Secret Management
 - Modular Programming
 - Software Engineering Principles
-- Built-in JavaScript Methods
-- File Handling
-- JSON
-- Encryption
-- Security Concepts
-- CLI Development
-- Frontend Development
-- Backend Development
-- API Communication
-- Database Integration
-- Testing
-- Error Handling
-- Project Deployment
+- Documentation
+- Deployment
+
+---
 
 This project will serve as both a complete JavaScript
 learning journey and a professional portfolio project.
