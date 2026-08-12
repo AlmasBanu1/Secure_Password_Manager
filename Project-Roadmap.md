@@ -569,15 +569,37 @@ Build Frontend Interface
 
 ---
 
-# 🚀 Upcoming Milestones
 ## Version 27 — Backend/API Integration
 
-Connect V26 frontend to Node.js/Express
-REST API
-GET, POST, PUT, DELETE
-Connect frontend ↔ backend
-Keep V25 encryption on the backend
-Basic API error handling
+**Features**
+
+- Connect V26 frontend to Node.js/Express
+- REST API
+- GET, POST, PUT, DELETE
+- Connect frontend ↔ backend
+- Temporary in-memory password storage
+- Basic API validation and error handling
+
+**Concepts**
+
+- Node.js
+- Express.js
+- REST API
+- HTTP Methods
+- Fetch API
+- Client-Server Communication
+- JSON
+- Async/Await
+- API Error Handling
+
+**Files**
+
+- backend/server.js
+- frontend/script.js
+
+---
+
+# 🚀 Upcoming Milestones
 
 ## Version 28 — Database & Persistent Storage
 
