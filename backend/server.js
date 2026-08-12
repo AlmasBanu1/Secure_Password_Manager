@@ -1,33 +1,22 @@
 // ==========================================================
-// Secure Password Manager - Version 27
+// Secure Password Manager - Version 28
 // ----------------------------------------------------------
-// Backend / REST API
-// ----------------------------------------------------------
-// Features:
-// - Express server
-// - JSON request handling
-// - GET all passwords
-// - POST a password
-// - PUT/update a password
-// - DELETE a password
-// - Basic input validation
-// - Basic API error responses
-// - Temporary in-memory storage
-//
-// Note:
-// V27 uses temporary in-memory storage.
-// V28 will introduce persistent database storage.
-// V25 encryption will be integrated into the backend
-// as part of the security layer.
+// Backend / REST API + MongoDB
 // ==========================================================
-
 
 // ==========================================================
 // Imports
 // ==========================================================
 
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
+
+const {
+    connectDatabase,
+    getDatabase
+} = require("./db");
 
 // ==========================================================
 // Express App
@@ -35,35 +24,24 @@ const cors = require("cors");
 
 const app = express();
 
-
 // ==========================================================
 // Configuration
 // ==========================================================
 
 const PORT = 3000;
 
-
 // ==========================================================
 // Middleware
 // ==========================================================
 
-// Allow Express to read JSON request bodies
-
 app.use(cors());
 app.use(express.json());
 
-
 // ==========================================================
-// Temporary Password Storage
-// ----------------------------------------------------------
-// V27: Temporary in-memory storage
-// V28: Will be replaced with database storage
+// Database Collection
 // ==========================================================
 
-let storedPasswords = [];
-
-let nextId = 1;
-
+const COLLECTION_NAME = "passwords";
 
 // ==========================================================
 // Root Route
@@ -77,202 +55,378 @@ app.get("/", function (req, res) {
 
 });
 
-
 // ==========================================================
 // GET - Get All Passwords
 // ==========================================================
 
-app.get("/api/passwords", function (req, res) {
+app.get("/api/passwords", async function (req, res) {
 
-    res.json(storedPasswords);
+    try {
+
+        const database = getDatabase();
+
+        const passwords =
+            await database
+                .collection(COLLECTION_NAME)
+                .find({})
+                .toArray();
+
+        res.json(passwords);
+
+    } catch (error) {
+
+        console.error(
+            "GET /api/passwords error:",
+            error
+        );
+
+        res.status(500).json({
+            error: "Unable to fetch passwords."
+        });
+
+    }
 
 });
-
 
 // ==========================================================
 // POST - Add Password
 // ==========================================================
 
-app.post("/api/passwords", function (req, res) {
+app.post("/api/passwords", async function (req, res) {
 
-    const password = req.body.password;
+    try {
 
+        const password = req.body.password;
 
-    // Validate request
+        // Validate password
 
-    if (
-        typeof password !== "string" ||
-        password.trim() === ""
-    ) {
+        if (
+            typeof password !== "string" ||
+            password.trim() === ""
+        ) {
 
-        return res.status(400).json({
-            error: "Password is required."
+            return res.status(400).json({
+                error: "Password is required."
+            });
+
+        }
+
+        const database = getDatabase();
+
+        const collection =
+            database.collection(COLLECTION_NAME);
+
+        // Check for duplicate password
+
+        const existingPassword =
+            await collection.findOne({
+                password: password.trim()
+            });
+
+        if (existingPassword) {
+
+            return res.status(409).json({
+                error: "This password is already stored."
+            });
+
+        }
+
+        // Create password record
+
+        const newPassword = {
+            password: password.trim(),
+            createdAt: new Date()
+        };
+
+        // Store password
+
+        const result =
+            await collection.insertOne(
+                newPassword
+            );
+
+        // Create frontend-friendly response
+
+        const savedPassword = {
+            id: result.insertedId.toString(),
+            password: newPassword.password,
+            createdAt: newPassword.createdAt
+        };
+
+        res.status(201).json({
+
+            message: "Password added successfully.",
+
+            password: savedPassword
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "POST /api/passwords error:",
+            error
+        );
+
+        res.status(500).json({
+            error: "Unable to add password."
         });
 
     }
 
-
-    // Create password record
-
-    const newPassword = {
-
-        id: nextId,
-
-        password: password.trim()
-
-    };
-
-
-    // Increase ID for next password
-
-    nextId++;
-
-
-    // Store password
-
-    storedPasswords.push(newPassword);
-
-
-    // Send response
-
-    res.status(201).json({
-
-        message: "Password added successfully.",
-
-        password: newPassword
-
-    });
-
 });
-
 
 // ==========================================================
 // PUT - Update Password
 // ==========================================================
 
-app.put("/api/passwords/:id", function (req, res) {
+app.put("/api/passwords/:id", async function (req, res) {
 
-    const id = Number(req.params.id);
+    try {
 
-    const newPassword = req.body.password;
+        const id = req.params.id;
 
+        const newPassword =
+            req.body.password;
 
-    // Validate password
+        // Validate password
 
-    if (
-        typeof newPassword !== "string" ||
-        newPassword.trim() === ""
-    ) {
+        if (
+            typeof newPassword !== "string" ||
+            newPassword.trim() === ""
+        ) {
 
-        return res.status(400).json({
-            error: "Password is required."
+            return res.status(400).json({
+                error: "Password is required."
+            });
+
+        }
+
+        const database = getDatabase();
+
+        const collection =
+            database.collection(COLLECTION_NAME);
+
+        // Import ObjectId
+
+        const { ObjectId } =
+            require("mongodb");
+
+        // Validate ID
+
+        if (!ObjectId.isValid(id)) {
+
+            return res.status(400).json({
+                error: "Invalid password ID."
+            });
+
+        }
+
+        // Check duplicate password
+
+        const duplicate =
+            await collection.findOne({
+
+                password: newPassword.trim(),
+
+                _id: {
+                    $ne: new ObjectId(id)
+                }
+
+            });
+
+        if (duplicate) {
+
+            return res.status(409).json({
+                error: "This password is already stored."
+            });
+
+        }
+
+        // Update password
+
+        const result =
+            await collection.findOneAndUpdate(
+
+                {
+                    _id: new ObjectId(id)
+                },
+
+                {
+                    $set: {
+                        password:
+                            newPassword.trim(),
+                        updatedAt:
+                            new Date()
+                    }
+                },
+
+                {
+                    returnDocument: "after"
+                }
+
+            );
+
+        // Password not found
+
+        if (!result) {
+
+            return res.status(404).json({
+                error: "Password not found."
+            });
+
+        }
+
+        const updatedPassword = {
+
+            id: result._id.toString(),
+
+            password:
+                result.password,
+
+            createdAt:
+                result.createdAt,
+
+            updatedAt:
+                result.updatedAt
+
+        };
+
+        res.json({
+
+            message:
+                "Password updated successfully.",
+
+            password:
+                updatedPassword
+
         });
 
-    }
+    } catch (error) {
 
-
-    // Find password
-
-    const passwordIndex =
-        storedPasswords.findIndex(
-            function (item) {
-
-                return item.id === id;
-
-            }
+        console.error(
+            "PUT /api/passwords error:",
+            error
         );
 
-
-    // Password not found
-
-    if (passwordIndex === -1) {
-
-        return res.status(404).json({
-            error: "Password not found."
+        res.status(500).json({
+            error: "Unable to update password."
         });
 
     }
 
-
-    // Update password
-
-    storedPasswords[passwordIndex].password =
-        newPassword.trim();
-
-
-    // Send response
-
-    res.json({
-
-        message: "Password updated successfully.",
-
-        password:
-            storedPasswords[passwordIndex]
-
-    });
-
 });
-
 
 // ==========================================================
 // DELETE - Delete Password
 // ==========================================================
 
-app.delete("/api/passwords/:id", function (req, res) {
+app.delete("/api/passwords/:id", async function (req, res) {
 
-    const id = Number(req.params.id);
+    try {
 
+        const id = req.params.id;
 
-    // Find password
+        const { ObjectId } =
+            require("mongodb");
 
-    const passwordIndex =
-        storedPasswords.findIndex(
-            function (item) {
+        // Validate ID
 
-                return item.id === id;
+        if (!ObjectId.isValid(id)) {
 
-            }
+            return res.status(400).json({
+                error: "Invalid password ID."
+            });
+
+        }
+
+        const database = getDatabase();
+
+        const collection =
+            database.collection(COLLECTION_NAME);
+
+        // Delete password
+
+        const result =
+            await collection.deleteOne({
+
+                _id:
+                    new ObjectId(id)
+
+            });
+
+        // Password not found
+
+        if (result.deletedCount === 0) {
+
+            return res.status(404).json({
+                error: "Password not found."
+            });
+
+        }
+
+        res.json({
+
+            message:
+                "Password deleted successfully."
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "DELETE /api/passwords error:",
+            error
         );
 
-
-    // Password not found
-
-    if (passwordIndex === -1) {
-
-        return res.status(404).json({
-            error: "Password not found."
+        res.status(500).json({
+            error: "Unable to delete password."
         });
 
     }
 
-
-    // Delete password
-
-    storedPasswords.splice(
-        passwordIndex,
-        1
-    );
-
-
-    // Send response
-
-    res.json({
-
-        message: "Password deleted successfully."
-
-    });
-
 });
-
 
 // ==========================================================
 // Start Server
 // ==========================================================
 
-app.listen(PORT, function () {
+async function startServer() {
 
-    console.log(
-        `Secure Password Manager API running on http://localhost:${PORT}`
-    );
+    try {
 
-});
+        // Connect to MongoDB
+
+        await connectDatabase();
+
+        // Start Express server
+
+        app.listen(
+            PORT,
+            function () {
+
+                console.log(
+                    `Secure Password Manager API running on http://localhost:${PORT}`
+                );
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Unable to start server:",
+            error.message
+        );
+
+        process.exit(1);
+
+    }
+
+}
+
+// ==========================================================
+// Start Application
+// ==========================================================
+
+startServer();

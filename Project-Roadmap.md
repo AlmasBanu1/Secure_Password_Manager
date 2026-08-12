@@ -599,15 +599,46 @@ Build Frontend Interface
 
 ---
 
-# 🚀 Upcoming Milestones
-
 ## Version 28 — Database & Persistent Storage
 
-Replace file-based storage with a database
-MongoDB or MySQL
-Create/read/update/delete password records
-Connect Express API to database
-Handle database connection/errors
+**Features**
+
+- MongoDB Community Server integration
+- MongoDB database connection
+- Persistent password storage
+- Create password records
+- Read password records
+- Update password records
+- Delete password records
+- MongoDB-generated document IDs
+- Automatic record timestamps
+- Database connection error handling
+- Express API connected to MongoDB
+- Replaced V27 in-memory storage with persistent database storage
+
+**Backend**
+
+- Node.js
+- Express.js
+- MongoDB
+- MongoDB Node.js Driver
+- REST API
+
+**API Operations**
+
+- GET `/api/passwords`
+- POST `/api/passwords`
+- PUT `/api/passwords/:id`
+- DELETE `/api/passwords/:id`
+
+**Files**
+
+- backend/server.js
+- backend/db.js
+
+---
+
+# 🚀 Upcoming Milestones
 
 ## Version 29 — Authentication & Access Control
 
