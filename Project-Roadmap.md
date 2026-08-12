@@ -638,47 +638,69 @@ Build Frontend Interface
 
 ---
 
-# 🚀 Upcoming Milestones
+## Version 29 — Authentication, Authorization & Vault Security — COMPLETED ✅
 
-# 🚀 Upcoming Milestones
-
-## Version 29 — Authentication, Authorization & Vault Security
-
-Build the authentication and security layer on top of the V28 MongoDB backend.
-
-**Requirements**
+**Completed Features**
 
 - User registration
 - User accounts
 - Master password
-- Secure master-password hashing
+- Secure master-password hashing with bcrypt
 - Login / unlock system
 - JWT-based authentication
-- Token/session management
-- Logout
-- User-specific password records
+- JWT token validation
+- Protected password-management APIs
+- Authentication error handling
 - Authorization
-- Protect password-management APIs
-- Prevent unauthorized access
-- Prevent users from accessing another user's passwords
-- Encrypt stored passwords in the vault
-- Decrypt passwords only when authorized
+- User-specific password records
+- User-to-password relationships
+- Cross-user access prevention
+- AES-256-GCM vault encryption
 - Secure encryption/decryption flow
+- Decryption only for authorized users
 - Authentication and authorization error handling
 
-**Main Concepts**
+**Security Concepts Implemented**
 
 - Authentication vs Authorization
-- Password hashing
+- Password hashing vs encryption
+- bcrypt
 - JWT
-- Tokens
-- Encryption vs Hashing
-- Access control
+- Bearer tokens
 - Protected REST APIs
-- User-to-password relationships
-- Secure secret handling
+- Access control
+- User ownership
+- AES-256-GCM
+- Initialization vectors (IV)
+- Authentication tags
+- Environment-based secret management
+
+**Verified Tests**
+
+- Correct login → passed
+- Incorrect password → rejected
+- JWT generated → passed
+- Missing token → rejected
+- Invalid JWT → rejected
+- Authenticated CRUD → passed
+- Vault encryption → passed
+- Vault decryption → passed
+- User-specific password storage → passed
+- Cross-user password access → rejected
+
+**Files Added/Updated**
+
+- backend/server.js
+- backend/userModel.js
+- backend/vaultCrypto.js
+- backend/db.js
+- package.json
+- package-lock.json
+- .env
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## Version 30 — Security Hardening & Testing
 
