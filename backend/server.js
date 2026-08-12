@@ -1,9 +1,17 @@
 // ==========================================================
-// Secure Password Manager - Version 29
+// Secure Password Manager - Version 30
 // ----------------------------------------------------------
 // Backend / REST API + MongoDB
 //
-// V29 features:
+// V30 additions:
+// - Centralized input validation
+// - Username validation
+// - Master password validation
+// - Vault password validation
+// - ObjectId validation
+// - Consistent validation error handling
+//
+// V29 features retained:
 // - User registration
 // - Master password hashing
 // - User login
@@ -14,7 +22,6 @@
 // - Decryption only for authenticated owner
 // - GET / POST / PUT / DELETE password operations
 // - GET single password by ID
-// - Input validation
 // - Authentication / authorization error handling
 //
 // V28 features retained:
@@ -36,6 +43,10 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
 const {
+    ObjectId
+} = require("mongodb");
+
+const {
     connectDatabase,
     getDatabase
 } = require("./db");
@@ -50,6 +61,13 @@ const {
     encryptPassword,
     decryptPassword
 } = require("./vaultCrypto");
+
+const {
+    validateUsername,
+    validateMasterPassword,
+    validateVaultPassword,
+    validateObjectId
+} = require("./validation");
 
 
 // ==========================================================
@@ -73,7 +91,7 @@ const JWT_EXPIRES_IN =
 
 
 // ==========================================================
-// Validate JWT Configuration
+// Validate Environment Configuration
 // ==========================================================
 
 if (!JWT_SECRET) {
@@ -114,6 +132,7 @@ function authenticateToken(req, res, next) {
         const authHeader =
             req.headers.authorization;
 
+
         // --------------------------------------------------
         // Authorization header missing
         // --------------------------------------------------
@@ -131,11 +150,12 @@ function authenticateToken(req, res, next) {
 
 
         // --------------------------------------------------
-        // Check Bearer format
+        // Validate Bearer format
         // --------------------------------------------------
 
         const parts =
             authHeader.split(" ");
+
 
         if (
             parts.length !== 2 ||
@@ -166,6 +186,25 @@ function authenticateToken(req, res, next) {
                 token,
                 JWT_SECRET
             );
+
+
+        // --------------------------------------------------
+        // Validate userId from token
+        // --------------------------------------------------
+
+        if (
+            typeof decoded.userId !== "string" ||
+            !validateObjectId(decoded.userId)
+        ) {
+
+            return res.status(401).json({
+
+                error:
+                    "Invalid authentication token."
+
+            });
+
+        }
 
 
         // --------------------------------------------------
@@ -207,7 +246,10 @@ app.get(
         res.json({
 
             message:
-                "Secure Password Manager API is running."
+                "Secure Password Manager API is running.",
+
+            version:
+                "V30"
 
         });
 
@@ -216,7 +258,7 @@ app.get(
 
 
 // ==========================================================
-// V29 - REGISTER USER
+// V30 - REGISTER USER
 // ==========================================================
 
 app.post(
@@ -236,15 +278,16 @@ app.post(
             // Validate username
             // --------------------------------------------------
 
-            if (
-                typeof username !== "string" ||
-                username.trim() === ""
-            ) {
+            const usernameError =
+                validateUsername(username);
+
+
+            if (usernameError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Username is required."
+                        usernameError
 
                 });
 
@@ -255,20 +298,27 @@ app.post(
             // Validate master password
             // --------------------------------------------------
 
-            if (
-                typeof masterPassword !== "string" ||
-                masterPassword === ""
-            ) {
+            const masterPasswordError =
+                validateMasterPassword(
+                    masterPassword
+                );
+
+
+            if (masterPasswordError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Master password is required."
+                        masterPasswordError
 
                 });
 
             }
 
+
+            // --------------------------------------------------
+            // Clean username
+            // --------------------------------------------------
 
             const cleanUsername =
                 username.trim();
@@ -342,7 +392,7 @@ app.post(
 
 
 // ==========================================================
-// V29 - LOGIN USER
+// V30 - LOGIN USER
 // ==========================================================
 
 app.post(
@@ -362,15 +412,16 @@ app.post(
             // Validate username
             // --------------------------------------------------
 
-            if (
-                typeof username !== "string" ||
-                username.trim() === ""
-            ) {
+            const usernameError =
+                validateUsername(username);
+
+
+            if (usernameError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Username is required."
+                        usernameError
 
                 });
 
@@ -381,15 +432,18 @@ app.post(
             // Validate master password
             // --------------------------------------------------
 
-            if (
-                typeof masterPassword !== "string" ||
-                masterPassword === ""
-            ) {
+            const masterPasswordError =
+                validateMasterPassword(
+                    masterPassword
+                );
+
+
+            if (masterPasswordError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Master password is required."
+                        masterPasswordError
 
                 });
 
@@ -521,7 +575,7 @@ app.post(
 // ==========================================================
 // GET ALL PASSWORDS
 // ----------------------------------------------------------
-// Protected route
+// Protected route.
 // Returns only passwords belonging to logged-in user.
 // ==========================================================
 
@@ -548,14 +602,16 @@ app.get(
 
                     })
                     .sort({
+
                         createdAt:
                             -1
+
                     })
                     .toArray();
 
 
             // --------------------------------------------------
-            // Decrypt passwords
+            // Decrypt only authenticated user's records
             // --------------------------------------------------
 
             const decryptedPasswords =
@@ -620,7 +676,7 @@ app.get(
 // ==========================================================
 // GET SINGLE PASSWORD
 // ----------------------------------------------------------
-// Protected route
+// Protected route.
 // User can only access their own password.
 // ==========================================================
 
@@ -631,11 +687,6 @@ app.get(
 
         try {
 
-            const {
-                ObjectId
-            } = require("mongodb");
-
-
             const id =
                 req.params.id;
 
@@ -645,7 +696,7 @@ app.get(
             // --------------------------------------------------
 
             if (
-                !ObjectId.isValid(id)
+                !validateObjectId(id)
             ) {
 
                 return res.status(400).json({
@@ -663,7 +714,7 @@ app.get(
 
 
             // --------------------------------------------------
-            // Find password belonging to user
+            // Find password belonging to logged-in user
             // --------------------------------------------------
 
             const record =
@@ -756,7 +807,7 @@ app.get(
 // ==========================================================
 // POST - ADD PASSWORD
 // ----------------------------------------------------------
-// Protected route
+// Protected route.
 // Password is encrypted before MongoDB storage.
 // ==========================================================
 
@@ -772,18 +823,21 @@ app.post(
 
 
             // --------------------------------------------------
-            // Validate password
+            // Validate vault password
             // --------------------------------------------------
 
-            if (
-                typeof password !== "string" ||
-                password.trim() === ""
-            ) {
+            const passwordError =
+                validateVaultPassword(
+                    password
+                );
+
+
+            if (passwordError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Password is required."
+                        passwordError
 
                 });
 
@@ -944,7 +998,7 @@ app.post(
 // ==========================================================
 // PUT - UPDATE PASSWORD
 // ----------------------------------------------------------
-// Protected route
+// Protected route.
 // User can update only their own password.
 // ==========================================================
 
@@ -955,11 +1009,6 @@ app.put(
 
         try {
 
-            const {
-                ObjectId
-            } = require("mongodb");
-
-
             const id =
                 req.params.id;
 
@@ -968,18 +1017,21 @@ app.put(
 
 
             // --------------------------------------------------
-            // Validate password
+            // Validate vault password
             // --------------------------------------------------
 
-            if (
-                typeof newPassword !== "string" ||
-                newPassword.trim() === ""
-            ) {
+            const passwordError =
+                validateVaultPassword(
+                    newPassword
+                );
+
+
+            if (passwordError) {
 
                 return res.status(400).json({
 
                     error:
-                        "Password is required."
+                        passwordError
 
                 });
 
@@ -987,11 +1039,11 @@ app.put(
 
 
             // --------------------------------------------------
-            // Validate ID
+            // Validate ObjectId
             // --------------------------------------------------
 
             if (
-                !ObjectId.isValid(id)
+                !validateObjectId(id)
             ) {
 
                 return res.status(400).json({
@@ -1221,7 +1273,7 @@ app.put(
 // ==========================================================
 // DELETE - DELETE PASSWORD
 // ----------------------------------------------------------
-// Protected route
+// Protected route.
 // User can delete only their own password.
 // ==========================================================
 
@@ -1232,21 +1284,16 @@ app.delete(
 
         try {
 
-            const {
-                ObjectId
-            } = require("mongodb");
-
-
             const id =
                 req.params.id;
 
 
             // --------------------------------------------------
-            // Validate ID
+            // Validate ObjectId
             // --------------------------------------------------
 
             if (
-                !ObjectId.isValid(id)
+                !validateObjectId(id)
             ) {
 
                 return res.status(400).json({
@@ -1331,6 +1378,46 @@ app.delete(
 
 
 // ==========================================================
+// GLOBAL JSON ERROR HANDLER
+// ==========================================================
+
+app.use(
+    function (err, req, res, next) {
+
+        console.error(
+            "Unhandled API error:",
+            err
+        );
+
+
+        if (
+            err instanceof SyntaxError &&
+            err.status === 400 &&
+            err.type === "entity.parse.failed"
+        ) {
+
+            return res.status(400).json({
+
+                error:
+                    "Invalid JSON request body."
+
+            });
+
+        }
+
+
+        res.status(500).json({
+
+            error:
+                "Internal server error."
+
+        });
+
+    }
+);
+
+
+// ==========================================================
 // START SERVER
 // ==========================================================
 
@@ -1356,7 +1443,9 @@ async function startServer() {
             function () {
 
                 console.log(
-                    `Secure Password Manager API running on http://localhost:${PORT}`
+
+                    `Secure Password Manager API V30 running on http://localhost:${PORT}`
+
                 );
 
             }

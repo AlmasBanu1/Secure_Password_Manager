@@ -700,48 +700,64 @@ Build Frontend Interface
 
 ---
 
-# 🚀 Upcoming Milestones
-
 ## Version 30 — Security Hardening & Testing
 
-Strengthen the complete application and verify that the security mechanisms actually work.
-
-**Requirements**
+**Features**
 
 - Input validation
-- Input sanitization where applicable
-- Rate limiting
-- Security headers
-- CSRF protection where applicable
-- Centralized API error handling
-- Consistent HTTP status codes
-- Authentication testing
-- Authorization testing
-- Unit testing
-- API testing
-- Integration testing
-- Security testing
-- Edge-case testing
-- Unauthorized-access testing
-- Cross-user access testing
-- Invalid/expired token testing
-- Password-vault security testing
-- Repeated-login/request testing
-- Malformed-input testing
+- Username validation
+- Master-password validation
+- Vault-password validation
+- MongoDB ObjectId validation
+- JWT authentication validation
+- Protected REST APIs
+- User-specific authorization
+- Cross-user access prevention
+- Cross-user update prevention
+- Cross-user delete prevention
+- AES vault encryption verification
+- Encrypted password storage verification
+- IV and authentication-tag verification
+- Plaintext password storage prevention
+- Password update encryption verification
+- Authentication error handling
+- Authorization error handling
+- Security-focused API testing
+- Multi-user isolation testing
+- Owner access testing
+- CRUD security testing
 
-**Security Checks**
+**Security Tests Completed**
 
-- Unauthenticated users cannot access protected APIs
-- Users cannot access another user's passwords
-- Passwords are not stored as plaintext
-- Master passwords are not stored as plaintext
-- Invalid tokens are rejected
-- Expired/invalid authentication is rejected
-- Invalid input is rejected safely
-- Excessive requests are limited
-- Sensitive information is not unnecessarily exposed in API errors
+- Invalid username rejected
+- Invalid master password rejected
+- Invalid vault password rejected
+- Invalid ObjectId rejected
+- Missing JWT rejected
+- Invalid JWT rejected
+- User 2 cannot access User 1 password
+- User 2 cannot update User 1 password
+- User 2 cannot delete User 1 password
+- User 1 can access own password
+- User 1 can update own password
+- User 1 can delete own password
+- Passwords stored encrypted in MongoDB
+- Plaintext vault passwords absent from MongoDB
+- Updated passwords are re-encrypted
+- Authorized users can decrypt their own passwords
+
+**Files**
+
+- backend/server.js
+- backend/validation.js
+- backend/vaultCrypto.js
+- backend/userModel.js
+- backend/db.js
+- Project-Roadmap.md
 
 ---
+
+# 🚀 Upcoming Milestones
 
 ## Version 31 — Refactoring, Documentation & Deployment
 
