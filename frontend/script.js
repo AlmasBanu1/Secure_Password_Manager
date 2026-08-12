@@ -1,12 +1,19 @@
 // ==========================================================
-// Secure Password Manager - Version 26
+// Secure Password Manager - Version 27
 // ----------------------------------------------------------
 // Frontend JavaScript
 // ----------------------------------------------------------
-// Features:
+// V27 Changes:
+// - Connect frontend to Express REST API
+// - GET passwords from backend
+// - POST new passwords
+// - PUT updated passwords
+// - DELETE passwords
+// - Keep V26 UI functionality
+// - Basic API error handling
+//
+// V26 Features Preserved:
 // - Generate passwords
-// - Add passwords
-// - Display passwords
 // - Show / hide main password
 // - Show / hide stored passwords
 // - Copy passwords
@@ -16,19 +23,16 @@
 // - Delete passwords
 // - Password strength detection
 // - Input validation
-// - User feedback
-//
-// Concepts:
-// - DOM manipulation
-// - Event listeners
-// - Functions
-// - Arrays
-// - Built-in array methods
-// - Random number generation
-// - String handling
-// - Input validation
-// - DOM element creation
+// - Duplicate password prevention
 // ==========================================================
+
+
+// ==========================================================
+// API Configuration
+// ==========================================================
+
+const API_URL =
+    "http://localhost:3000/api/passwords";
 
 
 // ==========================================================
@@ -86,6 +90,9 @@ const passwordCount =
 // ==========================================================
 // Password Storage
 // ==========================================================
+
+// V27:
+// Passwords are now loaded from the backend API.
 
 let storedPasswords = [];
 
@@ -215,14 +222,11 @@ function getPasswordStrength(password) {
 const uppercaseLetters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-
 const lowercaseLetters =
     "abcdefghijklmnopqrstuvwxyz";
 
-
 const numbers =
     "0123456789";
-
 
 const specialCharacters =
     "!@#$%^&*";
@@ -384,6 +388,76 @@ function updatePasswordCount() {
 
 
 // ==========================================================
+// API - GET All Passwords
+// ==========================================================
+
+async function loadPasswords() {
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load passwords."
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        // Store backend data locally
+        // for displaying/searching.
+
+        storedPasswords =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        // Display passwords
+
+        displayPasswords();
+
+    } catch (error) {
+
+        console.error(
+            "GET /api/passwords error:",
+            error
+        );
+
+
+        passwordList.innerHTML = "";
+
+
+        let errorMessage =
+            document.createElement("li");
+
+
+        errorMessage.className =
+            "empty-message";
+
+
+        errorMessage.textContent =
+            "Unable to connect to the backend server.";
+
+
+        passwordList.appendChild(
+            errorMessage
+        );
+
+    }
+
+}
+
+
+// ==========================================================
 // Show / Hide Main Password
 // ==========================================================
 
@@ -493,9 +567,19 @@ function displayPasswords(
     // ======================================================
 
     storedPasswords.forEach(
-        function(password, index) {
+        function(item, index) {
 
+            // Backend record contains:
+            // item.id
+            // item.password
+
+            let password =
+                item.password;
+
+
+            // ==================================================
             // Create list item
+            // ==================================================
 
             let listItem =
                 document.createElement("li");
@@ -687,8 +771,6 @@ function displayPasswords(
                     } catch (error) {
 
                         // Fallback for browsers
-                        // where Clipboard API
-                        // is unavailable
 
                         let temporaryInput =
                             document.createElement(
@@ -772,7 +854,7 @@ function displayPasswords(
 
             updateButton.addEventListener(
                 "click",
-                function() {
+                async function() {
 
                     let newPassword =
                         prompt(
@@ -821,22 +903,92 @@ function displayPasswords(
                     }
 
 
-                    // Update password
+                    // Prevent duplicate passwords
 
-                    storedPasswords[index] =
-                        newPassword;
+                    const duplicate =
+                        storedPasswords.some(
+                            function(item) {
+
+                                return (
+                                    item.password ===
+                                    newPassword &&
+                                    item.id !==
+                                    item.id
+                                );
+
+                            }
+                        );
 
 
-                    // Refresh list
+                    // Send update request
 
-                    displayPasswords();
+                    try {
+
+                        const response =
+                            await fetch(
+                                API_URL +
+                                "/" +
+                                item.id,
+                                {
+                                    method: "PUT",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify({
+                                            password:
+                                                newPassword
+                                        })
+                                }
+                            );
 
 
-                    // Success message
+                        const data =
+                            await response.json();
 
-                    alert(
-                        "Password updated successfully."
-                    );
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                data.error ||
+                                "Unable to update password."
+                            );
+
+                        }
+
+
+                        // Update local copy
+
+                        storedPasswords[index] =
+                            data.password;
+
+
+                        // Refresh list
+
+                        displayPasswords();
+
+
+                        alert(
+                            "Password updated successfully."
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "PUT /api/passwords error:",
+                            error
+                        );
+
+
+                        alert(
+                            error.message ||
+                            "Unable to update password."
+                        );
+
+                    }
 
                 }
             );
@@ -866,7 +1018,7 @@ function displayPasswords(
 
             deleteButton.addEventListener(
                 "click",
-                function() {
+                async function() {
 
                     let confirmed =
                         confirm(
@@ -883,24 +1035,64 @@ function displayPasswords(
                     }
 
 
-                    // Delete password
+                    try {
 
-                    storedPasswords.splice(
-                        index,
-                        1
-                    );
+                        const response =
+                            await fetch(
+                                API_URL +
+                                "/" +
+                                item.id,
+                                {
+                                    method: "DELETE"
+                                }
+                            );
 
 
-                    // Refresh list
+                        const data =
+                            await response.json();
 
-                    displayPasswords();
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                data.error ||
+                                "Unable to delete password."
+                            );
+
+                        }
 
 
-                    // Success message
+                        // Remove from local array
 
-                    alert(
-                        "Password deleted successfully."
-                    );
+                        storedPasswords.splice(
+                            index,
+                            1
+                        );
+
+
+                        // Refresh list
+
+                        displayPasswords();
+
+
+                        alert(
+                            "Password deleted successfully."
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "DELETE /api/passwords error:",
+                            error
+                        );
+
+
+                        alert(
+                            error.message ||
+                            "Unable to delete password."
+                        );
+
+                    }
 
                 }
             );
@@ -957,6 +1149,7 @@ function displayPasswords(
 
         }
     );
+
 }
 
 
@@ -978,9 +1171,12 @@ generateButton.addEventListener(
 
         // Hide generated password by default
 
-        passwordInput.type = "password";
+        passwordInput.type =
+            "password";
 
-        visibilityButton.textContent = "Show";
+
+        visibilityButton.textContent =
+            "Show";
 
     }
 );
@@ -992,7 +1188,7 @@ generateButton.addEventListener(
 
 addButton.addEventListener(
     "click",
-    function() {
+    async function() {
 
         let password =
             passwordInput.value.trim();
@@ -1022,45 +1218,113 @@ addButton.addEventListener(
 
         // Prevent duplicate passwords
 
-        if (storedPasswords.includes(password)) {
+        if (
+            storedPasswords.some(
+                function(item) {
+
+                    return item.password ===
+                        password;
+
+                }
+            )
+        ) {
+
             alert(
                 "This password is already stored."
             );
+
             return;
+
         }
-        
-        // Add password
-        storedPasswords.push(
-            password
-        );
 
 
-        // Clear input
+        // ==================================================
+        // POST Password to Backend
+        // ==================================================
 
-        passwordInput.value =
-            "";
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                password:
+                                    password
+                            })
+                    }
+                );
 
 
-        // Hide password input again
-
-        passwordInput.type =
-            "password";
+            const data =
+                await response.json();
 
 
-        visibilityButton.textContent =
-            "Show";
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Unable to add password."
+                );
+
+            }
 
 
-        // Display updated list
+            // Add backend-created record
+            // to local frontend state.
 
-        displayPasswords();
+            storedPasswords.push(
+                data.password
+            );
 
 
-        // Success message
+            // Clear input
 
-        alert(
-            "Password added successfully."
-        );
+            passwordInput.value =
+                "";
+
+
+            // Hide password input again
+
+            passwordInput.type =
+                "password";
+
+
+            visibilityButton.textContent =
+                "Show";
+
+
+            // Display updated list
+
+            displayPasswords();
+
+
+            alert(
+                "Password added successfully."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "POST /api/passwords error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to add password."
+            );
+
+        }
 
     }
 );
@@ -1076,10 +1340,10 @@ function searchPassword(target) {
 
 
     storedPasswords.forEach(
-        function(password) {
+        function(item) {
 
             if (
-                password ===
+                item.password ===
                 target
             ) {
 
@@ -1178,6 +1442,7 @@ searchInput.addEventListener(
     }
 );
 
+
 // ==========================================================
 // Clear Search - Reset Highlight
 // ==========================================================
@@ -1189,7 +1454,10 @@ searchInput.addEventListener(
         // If search box is empty,
         // display all stored passwords
 
-        if (searchInput.value.trim() === "") {
+        if (
+            searchInput.value.trim() ===
+            ""
+        ) {
 
             displayPasswords();
 
@@ -1197,8 +1465,12 @@ searchInput.addEventListener(
 
     }
 );
+
+
 // ==========================================================
-// Initial Display
+// Initial Load
 // ==========================================================
 
-displayPasswords();
+// Load passwords from backend
+
+loadPasswords();
