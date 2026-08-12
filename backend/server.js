@@ -1,17 +1,9 @@
 // ==========================================================
-// Secure Password Manager - Version 30
+// Secure Password Manager - Version 30.1
 // ----------------------------------------------------------
 // Backend / REST API + MongoDB
 //
-// V30 additions:
-// - Centralized input validation
-// - Username validation
-// - Master password validation
-// - Vault password validation
-// - ObjectId validation
-// - Consistent validation error handling
-//
-// V29 features retained:
+// V30 features retained:
 // - User registration
 // - Master password hashing
 // - User login
@@ -24,11 +16,12 @@
 // - GET single password by ID
 // - Authentication / authorization error handling
 //
-// V28 features retained:
-// - MongoDB persistent storage
-// - Express REST API
-// - MongoDB ObjectId
-// - Automatic timestamps
+// V30.1:
+// - Centralized input validation
+// - Username validation
+// - Master password validation
+// - Vault password validation
+// - MongoDB ObjectId validation
 // ==========================================================
 
 
@@ -41,10 +34,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-
-const {
-    ObjectId
-} = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 const {
     connectDatabase,
@@ -91,7 +81,7 @@ const JWT_EXPIRES_IN =
 
 
 // ==========================================================
-// Validate Environment Configuration
+// Validate JWT Configuration
 // ==========================================================
 
 if (!JWT_SECRET) {
@@ -150,12 +140,11 @@ function authenticateToken(req, res, next) {
 
 
         // --------------------------------------------------
-        // Validate Bearer format
+        // Check Bearer format
         // --------------------------------------------------
 
         const parts =
             authHeader.split(" ");
-
 
         if (
             parts.length !== 2 ||
@@ -189,18 +178,17 @@ function authenticateToken(req, res, next) {
 
 
         // --------------------------------------------------
-        // Validate userId from token
+        // Validate userId from JWT
         // --------------------------------------------------
 
         if (
-            typeof decoded.userId !== "string" ||
             !validateObjectId(decoded.userId)
         ) {
 
             return res.status(401).json({
 
                 error:
-                    "Invalid authentication token."
+                    "Invalid or expired authentication token."
 
             });
 
@@ -211,8 +199,8 @@ function authenticateToken(req, res, next) {
         // Store authenticated user
         // --------------------------------------------------
 
-        req.user = decoded;
-
+        req.user =
+            decoded;
 
         next();
 
@@ -236,7 +224,7 @@ function authenticateToken(req, res, next) {
 
 
 // ==========================================================
-// Root Route
+// ROOT ROUTE
 // ==========================================================
 
 app.get(
@@ -249,7 +237,7 @@ app.get(
                 "Secure Password Manager API is running.",
 
             version:
-                "V30"
+                "V30.1"
 
         });
 
@@ -258,7 +246,7 @@ app.get(
 
 
 // ==========================================================
-// V30 - REGISTER USER
+// REGISTER USER
 // ==========================================================
 
 app.post(
@@ -281,7 +269,6 @@ app.post(
             const usernameError =
                 validateUsername(username);
 
-
             if (usernameError) {
 
                 return res.status(400).json({
@@ -303,7 +290,6 @@ app.post(
                     masterPassword
                 );
 
-
             if (masterPasswordError) {
 
                 return res.status(400).json({
@@ -315,10 +301,6 @@ app.post(
 
             }
 
-
-            // --------------------------------------------------
-            // Clean username
-            // --------------------------------------------------
 
             const cleanUsername =
                 username.trim();
@@ -332,7 +314,6 @@ app.post(
                 await findUserByUsername(
                     cleanUsername
                 );
-
 
             if (existingUser) {
 
@@ -361,7 +342,7 @@ app.post(
             // Safe response
             // --------------------------------------------------
 
-            res.status(201).json({
+            return res.status(201).json({
 
                 message:
                     "User registered successfully.",
@@ -378,7 +359,7 @@ app.post(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to register user."
@@ -392,7 +373,7 @@ app.post(
 
 
 // ==========================================================
-// V30 - LOGIN USER
+// LOGIN USER
 // ==========================================================
 
 app.post(
@@ -415,7 +396,6 @@ app.post(
             const usernameError =
                 validateUsername(username);
 
-
             if (usernameError) {
 
                 return res.status(400).json({
@@ -436,7 +416,6 @@ app.post(
                 validateMasterPassword(
                     masterPassword
                 );
-
 
             if (masterPasswordError) {
 
@@ -490,7 +469,6 @@ app.post(
                     user.passwordHash
                 );
 
-
             if (!passwordCorrect) {
 
                 return res.status(401).json({
@@ -532,7 +510,7 @@ app.post(
             // Login response
             // --------------------------------------------------
 
-            res.json({
+            return res.json({
 
                 message:
                     "Login successful.",
@@ -559,7 +537,7 @@ app.post(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to login."
@@ -574,9 +552,6 @@ app.post(
 
 // ==========================================================
 // GET ALL PASSWORDS
-// ----------------------------------------------------------
-// Protected route.
-// Returns only passwords belonging to logged-in user.
 // ==========================================================
 
 app.get(
@@ -589,12 +564,9 @@ app.get(
             const database =
                 getDatabase();
 
-
             const passwords =
                 await database
-                    .collection(
-                        COLLECTION_NAME
-                    )
+                    .collection(COLLECTION_NAME)
                     .find({
 
                         userId:
@@ -611,7 +583,7 @@ app.get(
 
 
             // --------------------------------------------------
-            // Decrypt only authenticated user's records
+            // Decrypt passwords
             // --------------------------------------------------
 
             const decryptedPasswords =
@@ -649,7 +621,7 @@ app.get(
                 );
 
 
-            res.json(
+            return res.json(
                 decryptedPasswords
             );
 
@@ -660,7 +632,7 @@ app.get(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to fetch passwords."
@@ -675,9 +647,6 @@ app.get(
 
 // ==========================================================
 // GET SINGLE PASSWORD
-// ----------------------------------------------------------
-// Protected route.
-// User can only access their own password.
 // ==========================================================
 
 app.get(
@@ -695,9 +664,7 @@ app.get(
             // Validate ObjectId
             // --------------------------------------------------
 
-            if (
-                !validateObjectId(id)
-            ) {
+            if (!validateObjectId(id)) {
 
                 return res.status(400).json({
 
@@ -714,14 +681,12 @@ app.get(
 
 
             // --------------------------------------------------
-            // Find password belonging to logged-in user
+            // Find password belonging to user
             // --------------------------------------------------
 
             const record =
                 await database
-                    .collection(
-                        COLLECTION_NAME
-                    )
+                    .collection(COLLECTION_NAME)
                     .findOne({
 
                         _id:
@@ -734,7 +699,7 @@ app.get(
 
 
             // --------------------------------------------------
-            // Password not found / unauthorized
+            // Password not found
             // --------------------------------------------------
 
             if (!record) {
@@ -765,7 +730,7 @@ app.get(
                 );
 
 
-            res.json({
+            return res.json({
 
                 _id:
                     record._id,
@@ -791,7 +756,7 @@ app.get(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to fetch password."
@@ -806,9 +771,6 @@ app.get(
 
 // ==========================================================
 // POST - ADD PASSWORD
-// ----------------------------------------------------------
-// Protected route.
-// Password is encrypted before MongoDB storage.
 // ==========================================================
 
 app.post(
@@ -831,7 +793,6 @@ app.post(
                     password
                 );
 
-
             if (passwordError) {
 
                 return res.status(400).json({
@@ -850,7 +811,6 @@ app.post(
 
             const database =
                 getDatabase();
-
 
             const collection =
                 database.collection(
@@ -955,7 +915,7 @@ app.post(
             // Response
             // --------------------------------------------------
 
-            res.status(201).json({
+            return res.status(201).json({
 
                 message:
                     "Password added successfully.",
@@ -982,7 +942,7 @@ app.post(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to add password."
@@ -997,9 +957,6 @@ app.post(
 
 // ==========================================================
 // PUT - UPDATE PASSWORD
-// ----------------------------------------------------------
-// Protected route.
-// User can update only their own password.
 // ==========================================================
 
 app.put(
@@ -1025,7 +982,6 @@ app.put(
                     newPassword
                 );
 
-
             if (passwordError) {
 
                 return res.status(400).json({
@@ -1042,9 +998,7 @@ app.put(
             // Validate ObjectId
             // --------------------------------------------------
 
-            if (
-                !validateObjectId(id)
-            ) {
+            if (!validateObjectId(id)) {
 
                 return res.status(400).json({
 
@@ -1059,10 +1013,11 @@ app.put(
             const cleanPassword =
                 newPassword.trim();
 
+            const objectId =
+                new ObjectId(id);
 
             const database =
                 getDatabase();
-
 
             const collection =
                 database.collection(
@@ -1078,7 +1033,7 @@ app.put(
                 await collection.findOne({
 
                     _id:
-                        new ObjectId(id),
+                        objectId,
 
                     userId:
                         req.user.userId
@@ -1112,7 +1067,7 @@ app.put(
                         _id: {
 
                             $ne:
-                                new ObjectId(id)
+                                objectId
 
                         }
 
@@ -1174,7 +1129,7 @@ app.put(
                     {
 
                         _id:
-                            new ObjectId(id),
+                            objectId,
 
                         userId:
                             req.user.userId
@@ -1227,7 +1182,7 @@ app.put(
             // Response
             // --------------------------------------------------
 
-            res.json({
+            return res.json({
 
                 message:
                     "Password updated successfully.",
@@ -1257,7 +1212,7 @@ app.put(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to update password."
@@ -1272,9 +1227,6 @@ app.put(
 
 // ==========================================================
 // DELETE - DELETE PASSWORD
-// ----------------------------------------------------------
-// Protected route.
-// User can delete only their own password.
 // ==========================================================
 
 app.delete(
@@ -1292,9 +1244,7 @@ app.delete(
             // Validate ObjectId
             // --------------------------------------------------
 
-            if (
-                !validateObjectId(id)
-            ) {
+            if (!validateObjectId(id)) {
 
                 return res.status(400).json({
 
@@ -1308,7 +1258,6 @@ app.delete(
 
             const database =
                 getDatabase();
-
 
             const collection =
                 database.collection(
@@ -1350,7 +1299,7 @@ app.delete(
             }
 
 
-            res.json({
+            return res.json({
 
                 message:
                     "Password deleted successfully."
@@ -1364,7 +1313,7 @@ app.delete(
                 error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
 
                 error:
                     "Unable to delete password."
@@ -1378,46 +1327,6 @@ app.delete(
 
 
 // ==========================================================
-// GLOBAL JSON ERROR HANDLER
-// ==========================================================
-
-app.use(
-    function (err, req, res, next) {
-
-        console.error(
-            "Unhandled API error:",
-            err
-        );
-
-
-        if (
-            err instanceof SyntaxError &&
-            err.status === 400 &&
-            err.type === "entity.parse.failed"
-        ) {
-
-            return res.status(400).json({
-
-                error:
-                    "Invalid JSON request body."
-
-            });
-
-        }
-
-
-        res.status(500).json({
-
-            error:
-                "Internal server error."
-
-        });
-
-    }
-);
-
-
-// ==========================================================
 // START SERVER
 // ==========================================================
 
@@ -1425,16 +1334,8 @@ async function startServer() {
 
     try {
 
-        // --------------------------------------------------
-        // Connect to MongoDB
-        // --------------------------------------------------
-
         await connectDatabase();
 
-
-        // --------------------------------------------------
-        // Start Express server
-        // --------------------------------------------------
 
         app.listen(
 
@@ -1443,9 +1344,7 @@ async function startServer() {
             function () {
 
                 console.log(
-
-                    `Secure Password Manager API V30 running on http://localhost:${PORT}`
-
+                    `Secure Password Manager API running on http://localhost:${PORT}`
                 );
 
             }
@@ -1455,11 +1354,8 @@ async function startServer() {
     } catch (error) {
 
         console.error(
-
             "Unable to start server:",
-
             error.message
-
         );
 
         process.exit(1);
