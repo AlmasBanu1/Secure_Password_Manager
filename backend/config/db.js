@@ -6,7 +6,6 @@
 // Responsibilities:
 // - Connect to MongoDB
 // - Provide database access
-// - Provide controlled password-vault reset
 // ==========================================================
 
 
@@ -29,9 +28,6 @@ const MONGO_URI =
 
 const DATABASE_NAME =
     "secure_password_manager";
-
-const PASSWORD_COLLECTION =
-    "passwords";
 
 
 // ==========================================================
@@ -114,44 +110,6 @@ function getDatabase() {
 
 
 // ==========================================================
-// Clear Password Collection
-// ----------------------------------------------------------
-// IMPORTANT:
-// This deletes ONLY records from the "passwords"
-// collection.
-//
-// It does NOT delete:
-// - users
-// - authentication data
-// - JWT configuration
-// - any other collection
-// ==========================================================
-
-async function clearPasswordCollection() {
-
-    const database =
-        getDatabase();
-
-
-    const result =
-        await database
-            .collection(
-                PASSWORD_COLLECTION
-            )
-            .deleteMany({});
-
-
-    console.log(
-        `Password vault reset: ${result.deletedCount} password record(s) deleted.`
-    );
-
-
-    return result;
-
-}
-
-
-// ==========================================================
 // Export
 // ==========================================================
 
@@ -159,8 +117,6 @@ module.exports = {
 
     connectDatabase,
 
-    getDatabase,
-
-    clearPasswordCollection
+    getDatabase
 
 };
