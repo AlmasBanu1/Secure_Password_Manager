@@ -1,0 +1,1008 @@
+/* ==========================================================
+   SECURE PASSWORD MANAGER
+   V31 Shared Stylesheet
+   ========================================================== */
+
+
+/* ==========================================================
+   GLOBAL RESET
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #1f2937;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff 0%,
+            #f8fafc 50%,
+            #e0f2fe 100%
+        );
+
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   MAIN CONTAINER
+   ========================================================== */
+
+.container {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+
+/* ==========================================================
+   PAGE HEADER
+   ========================================================== */
+
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 8px;
+}
+
+
+.subtitle {
+    font-size: 1rem;
+    color: #64748b;
+}
+
+
+/* ==========================================================
+   COMMON SECTIONS
+   ========================================================== */
+
+.auth-section,
+.password-section,
+.search-section,
+.password-list-section {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    padding: 28px;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+
+.auth-section h2,
+.password-section h2,
+.search-section h2,
+.password-list-section h2 {
+    color: #111827;
+
+    font-size: 1.35rem;
+
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================================
+   AUTH / SECTION HEADER
+   ========================================================== */
+
+.auth-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+
+.auth-subtitle {
+    color: #64748b;
+
+    font-size: 0.95rem;
+
+    margin-top: 4px;
+}
+
+
+/* ==========================================================
+   FORM GROUPS
+   ========================================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* ==========================================================
+   INPUTS
+   ========================================================== */
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 1rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #4f46e5;
+
+    box-shadow:
+        0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* ==========================================================
+   PASSWORD INPUT GROUP
+   ========================================================== */
+
+.password-input-group,
+.master-password-group {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+
+
+.password-input-group input,
+.master-password-group input {
+    width: 100%;
+
+    padding-right: 50px;
+}
+
+
+/* ==========================================================
+   BROWSER-NATIVE PASSWORD REVEAL
+   Hide browser-specific password controls
+   ========================================================== */
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-password-reveal-button,
+input[type="password"]::-webkit-clear-button {
+    display: none;
+}
+
+
+/* ==========================================================
+   CUSTOM PASSWORD VISIBILITY BUTTON
+   Browser-independent SVG eye
+   ========================================================== */
+
+.password-visibility-button {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    outline: none;
+    appearance: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    z-index: 10;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.password-visibility-button:hover {
+    color: #4f46e5;
+
+    background: #eef2ff;
+
+    /* Prevent global button:hover from moving the eye */
+    transform: translateY(-50%);
+}
+
+
+.password-visibility-button:active {
+    /* Prevent global button:active from moving the eye */
+    transform: translateY(-50%);
+}
+
+
+.password-visibility-button:focus {
+    outline: none;
+}
+
+
+.password-visibility-button:focus-visible {
+    outline: 2px solid #4f46e5;
+
+    outline-offset: 2px;
+}
+
+
+.eye-icon {
+    width: 20px;
+    height: 20px;
+
+    display: block;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    /* Make the button itself receive the click */
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   BUTTON GROUP
+   ========================================================== */
+
+.button-group {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+/* ==========================================================
+   GENERAL BUTTON STYLES
+   ========================================================== */
+
+button {
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 18px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+
+button:active {
+    transform: translateY(0);
+}
+
+
+button:focus-visible {
+    outline: 2px solid #4f46e5;
+
+    outline-offset: 2px;
+}
+
+
+button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+
+    transform: none;
+}
+
+
+/* ==========================================================
+   PRIMARY ACTION BUTTONS
+   ========================================================== */
+
+/* Create Password */
+#createPasswordButton,
+#generateButton,
+#addButton {
+    background: #4f46e5;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+
+#createPasswordButton:hover,
+#generateButton:hover,
+#addButton:hover {
+    background: #4338ca;
+
+    box-shadow:
+        0 6px 14px rgba(79, 70, 229, 0.25);
+}
+
+
+/* ==========================================================
+   SECONDARY NAVIGATION BUTTONS
+   ========================================================== */
+
+/* Dashboard / Vault navigation */
+
+#vaultButton,
+#backToDashboardButton,
+#dashboardButton {
+    background: #0f766e;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(15, 118, 110, 0.18);
+}
+
+
+#vaultButton:hover,
+#backToDashboardButton:hover,
+#dashboardButton:hover {
+    background: #115e59;
+
+    box-shadow:
+        0 6px 14px rgba(15, 118, 110, 0.24);
+}
+
+
+/* ==========================================================
+   LOGOUT BUTTON
+   ========================================================== */
+
+#logoutButton {
+    background: #dc2626;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, 0.18);
+}
+
+
+#logoutButton:hover {
+    background: #b91c1c;
+
+    box-shadow:
+        0 6px 14px rgba(220, 38, 38, 0.24);
+}
+
+
+/* ==========================================================
+   AUTH BUTTONS
+   Used by login/register page
+   ========================================================== */
+
+#registerButton,
+#loginButton {
+    background: #4f46e5;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+
+#registerButton:hover,
+#loginButton:hover {
+    background: #4338ca;
+}
+
+
+/* ==========================================================
+   SEARCH SECTION
+   ========================================================== */
+
+.search-section {
+    margin-bottom: 24px;
+}
+
+
+.search-group {
+    display: flex;
+
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+
+.search-group input {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+#searchButton {
+    flex-shrink: 0;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    padding-left: 22px;
+    padding-right: 22px;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+
+#searchButton:hover {
+    background: #1d4ed8;
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.24);
+}
+
+
+/* ==========================================================
+   SECURITY HINT
+   ========================================================== */
+
+.security-hint {
+    margin-top: 14px;
+
+    padding: 14px 16px;
+
+    border-left: 4px solid #4f46e5;
+
+    border-radius: 8px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 0.9rem;
+}
+
+
+.security-hint p {
+    margin: 0;
+}
+
+
+/* ==========================================================
+   MESSAGE AREA
+   ========================================================== */
+
+.message {
+    min-height: 24px;
+
+    margin-bottom: 20px;
+
+    padding: 0 4px;
+
+    font-size: 0.95rem;
+
+    font-weight: 500;
+
+    color: #475569;
+}
+
+
+/* ==========================================================
+   PASSWORD LIST SECTION
+   ========================================================== */
+
+.password-list-section {
+    overflow: hidden;
+}
+
+
+.section-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+
+.section-header h2 {
+    margin-bottom: 0;
+}
+
+
+.password-count {
+    min-width: 32px;
+    height: 32px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 10px;
+
+    border-radius: 999px;
+
+    background: #eef2ff;
+
+    color: #4338ca;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   PASSWORD LIST
+   ========================================================== */
+
+#passwordList {
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+/* ==========================================================
+   PASSWORD ITEMS
+   ========================================================== */
+
+.password-item {
+    padding: 18px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.password-item:hover {
+    border-color: #c7d2fe;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.06);
+}
+
+
+/* ==========================================================
+   STORED PASSWORD CONTENT
+   ========================================================== */
+
+.stored-password {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.stored-password strong {
+    color: #111827;
+
+    font-size: 0.95rem;
+}
+
+
+.stored-password-value {
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    color: #334155;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    word-break: break-all;
+}
+
+
+/* ==========================================================
+   PASSWORD SEARCH HIGHLIGHT
+   ========================================================== */
+
+.search-highlight {
+    background: #fef3c7;
+
+    color: #92400e;
+
+    border-radius: 3px;
+
+    padding: 1px 3px;
+}
+
+
+/* ==========================================================
+   PASSWORD ACTION BUTTONS
+   Handles buttons generated dynamically by vault-page.js
+   ========================================================== */
+
+.password-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+
+.password-actions button {
+    padding: 8px 13px;
+
+    font-size: 0.85rem;
+}
+
+
+/* Copy */
+.copy-button,
+#copyButton {
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+
+.copy-button:hover,
+#copyButton:hover {
+    background: #1d4ed8;
+}
+
+
+/* Edit */
+.edit-button,
+#editButton {
+    background: #d97706;
+
+    color: #ffffff;
+}
+
+
+.edit-button:hover,
+#editButton:hover {
+    background: #b45309;
+}
+
+
+/* Delete */
+.delete-button,
+#deleteButton {
+    background: #dc2626;
+
+    color: #ffffff;
+}
+
+
+.delete-button:hover,
+#deleteButton:hover {
+    background: #b91c1c;
+}
+
+
+/* ==========================================================
+   DYNAMIC FORM / EDIT CONTROLS
+   ========================================================== */
+
+.password-item input {
+    width: 100%;
+
+    margin-top: 8px;
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.page-footer {
+    text-align: center;
+
+    margin-top: 30px;
+    padding: 20px 0 5px;
+
+    color: #94a3b8;
+
+    font-size: 0.85rem;
+}
+
+
+.page-footer p {
+    margin: 0;
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 30px 18px;
+    }
+
+
+    .page-header h1 {
+        font-size: 1.9rem;
+    }
+
+
+    .auth-section,
+    .password-section,
+    .search-section,
+    .password-list-section {
+        padding: 22px;
+    }
+
+
+    .button-group {
+        gap: 10px;
+    }
+
+
+    button {
+        padding: 10px 15px;
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 24px 14px;
+    }
+
+
+    .page-header {
+        margin-bottom: 22px;
+    }
+
+
+    .page-header h1 {
+        font-size: 1.65rem;
+    }
+
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+
+    .auth-section,
+    .password-section,
+    .search-section,
+    .password-list-section {
+        padding: 18px;
+
+        border-radius: 12px;
+    }
+
+
+    .auth-header {
+        margin-bottom: 18px;
+    }
+
+
+    .auth-section h2,
+    .password-section h2,
+    .search-section h2,
+    .password-list-section h2 {
+        font-size: 1.15rem;
+    }
+
+
+    .button-group {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+
+    .button-group button {
+        width: 100%;
+    }
+
+
+    .search-group {
+        flex-direction: column;
+    }
+
+
+    .search-group input,
+    #searchButton {
+        width: 100%;
+    }
+
+
+    .password-actions {
+        flex-direction: column;
+    }
+
+
+    .password-actions button {
+        width: 100%;
+    }
+
+
+    .section-header {
+        align-items: flex-start;
+    }
+
+
+    .password-count {
+        flex-shrink: 0;
+    }
+}
+
+
+/* ==========================================================
+   SMALL MOBILE
+   ========================================================== */
+
+@media (max-width: 400px) {
+
+    .container {
+        padding: 20px 10px;
+    }
+
+
+    .page-header h1 {
+        font-size: 1.45rem;
+    }
+
+
+    .auth-section,
+    .password-section,
+    .search-section,
+    .password-list-section {
+        padding: 15px;
+    }
+
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        font-size: 0.95rem;
+    }
+}

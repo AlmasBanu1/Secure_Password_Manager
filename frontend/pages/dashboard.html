@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Secure Password Manager - Dashboard"
+    >
+
+    <title>
+        Dashboard | Secure Password Manager
+    </title>
+
+    <!-- Main stylesheet -->
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ======================================================
+         Main Container
+         ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- ==================================================
+             Page Header
+             ================================================== -->
+
+        <header class="page-header">
+
+            <h1>
+                Secure Password Manager
+            </h1>
+
+            <p class="subtitle">
+                Manage your passwords securely
+            </p>
+
+        </header>
+
+
+        <!-- ==================================================
+             Dashboard Section
+             ================================================== -->
+
+        <section
+            class="auth-section"
+            aria-labelledby="dashboardHeading"
+        >
+
+            <!-- Dashboard Header -->
+
+            <div class="auth-header">
+
+                <div>
+
+                    <h2 id="dashboardHeading">
+                        Password Dashboard
+                    </h2>
+
+                    <p class="auth-subtitle">
+                        Choose what you want to do with your passwords.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 Dashboard Actions
+                 ================================================== -->
+
+            <div class="button-group">
+
+                <!-- Create Password -->
+
+                <button
+                    type="button"
+                    id="createPasswordButton"
+                >
+                    Create Password
+                </button>
+
+
+                <!-- Password Vault -->
+
+                <button
+                    type="button"
+                    id="vaultButton"
+                >
+                    Password Vault
+                </button>
+
+
+                <!-- Logout -->
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             Message Area
+             ================================================== -->
+
+        <div
+            id="message"
+            class="message"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+
+        <!-- ==================================================
+             Dashboard Information
+             ================================================== -->
+
+        <section class="password-section">
+
+            <h2>
+                Your Password Manager
+            </h2>
+
+            <p class="security-hint">
+                Create strong passwords and securely manage
+                your stored passwords from the Password Vault.
+            </p>
+
+        </section>
+
+
+        <!-- ==================================================
+             Footer
+             ================================================== -->
+
+        <footer class="page-footer">
+
+            <p>
+                Secure Password Manager
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- ======================================================
+         Dashboard JavaScript
+         ====================================================== -->
+
+    <script
+        type="module"
+        src="../js/dashboard.js"
+    ></script>
+
+</body>
+
+</html>

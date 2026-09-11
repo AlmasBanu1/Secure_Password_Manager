@@ -1,14 +1,20 @@
 // ==========================================================
-// Secure Password Manager - Version 29
+// Secure Password Manager - Version 31
 // ----------------------------------------------------------
 // Vault Encryption / Decryption
 // ----------------------------------------------------------
 // Uses AES-256-GCM to encrypt stored vault passwords.
 // ==========================================================
 
+
+// ==========================================================
+// Imports
+// ==========================================================
+
 require("dotenv").config();
 
 const crypto = require("crypto");
+
 
 // ==========================================================
 // Configuration
@@ -18,6 +24,7 @@ const ALGORITHM = "aes-256-gcm";
 
 const KEY_HEX =
     process.env.VAULT_ENCRYPTION_KEY;
+
 
 // ==========================================================
 // Validate Encryption Key
@@ -36,6 +43,7 @@ if (
 
 const ENCRYPTION_KEY =
     Buffer.from(KEY_HEX, "hex");
+
 
 // ==========================================================
 // Encrypt Password
@@ -81,6 +89,7 @@ function encryptPassword(password) {
 
 }
 
+
 // ==========================================================
 // Decrypt Password
 // ==========================================================
@@ -115,6 +124,7 @@ function decryptPassword(
     return decrypted;
 
 }
+
 
 // ==========================================================
 // Export

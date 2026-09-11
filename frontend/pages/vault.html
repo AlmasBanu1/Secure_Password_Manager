@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Secure Password Manager - Password Vault"
+    >
+
+    <title>
+        Password Vault | Secure Password Manager
+    </title>
+
+    <!-- Main stylesheet -->
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ======================================================
+         Main Container
+         ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- ==================================================
+             Page Header
+             ================================================== -->
+
+        <header class="page-header">
+
+            <h1>
+                Secure Password Manager
+            </h1>
+
+            <p class="subtitle">
+                View and manage your stored passwords securely
+            </p>
+
+        </header>
+
+
+        <!-- ==================================================
+             Vault Header
+             ================================================== -->
+
+        <section
+            class="auth-section"
+            aria-labelledby="vaultHeading"
+        >
+
+            <div class="auth-header">
+
+                <div>
+
+                    <h2 id="vaultHeading">
+                        Password Vault
+                    </h2>
+
+                    <p class="auth-subtitle">
+                        View, search and manage your stored passwords.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 Navigation Actions
+                 ================================================== -->
+
+            <div class="button-group">
+
+                <button
+                    type="button"
+                    id="dashboardButton"
+                >
+                    Dashboard
+                </button>
+
+
+                <button
+                    type="button"
+                    id="createPasswordButton"
+                >
+                    Create Password
+                </button>
+
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             Message Area
+             ================================================== -->
+
+        <div
+            id="message"
+            class="message"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+
+        <!-- ==================================================
+             Search Section
+             ================================================== -->
+
+        <section
+            class="search-section"
+            aria-labelledby="searchHeading"
+        >
+
+            <h2 id="searchHeading">
+                Search Passwords
+            </h2>
+
+
+            <div class="form-group">
+
+                <label for="searchInput">
+                    Search Stored Password
+                </label>
+
+
+                <div class="search-group">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        name="search"
+                        placeholder="Search passwords"
+                        autocomplete="off"
+                    >
+
+
+                    <button
+                        type="button"
+                        id="searchButton"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             Stored Passwords Section
+             ================================================== -->
+
+        <section
+            class="password-list-section"
+            aria-labelledby="storedPasswordsHeading"
+        >
+
+            <!-- ==================================================
+                 Section Header
+                 ================================================== -->
+
+            <div class="section-header">
+
+                <h2 id="storedPasswordsHeading">
+                    Stored Passwords
+                </h2>
+
+
+                <span
+                    id="passwordCount"
+                    class="password-count"
+                    aria-label="Number of stored passwords"
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <!-- ==================================================
+                 Password List
+                 ================================================== -->
+
+            <ul
+                id="passwordList"
+                aria-live="polite"
+            >
+
+                <!-- Passwords will be generated by JavaScript -->
+
+            </ul>
+
+        </section>
+
+
+        <!-- ==================================================
+             Security Information
+             ================================================== -->
+
+        <section class="password-section">
+
+            <h2>
+                Security
+            </h2>
+
+            <p class="security-hint">
+                Stored passwords are protected by the application's
+                vault encryption system.
+            </p>
+
+        </section>
+
+
+        <!-- ==================================================
+             Footer
+             ================================================== -->
+
+        <footer class="page-footer">
+
+            <p>
+                Secure Password Manager
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- ======================================================
+         Vault JavaScript
+         ====================================================== -->
+
+    <script
+        type="module"
+        src="../js/vault-page.js"
+    ></script>
+
+</body>
+
+</html>

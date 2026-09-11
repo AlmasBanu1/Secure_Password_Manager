@@ -1,5 +1,5 @@
 // ==========================================================
-// Secure Password Manager - Version 29
+// Secure Password Manager - Version 31
 // ----------------------------------------------------------
 // User Model
 // ----------------------------------------------------------
@@ -7,9 +7,9 @@
 // - Create users
 // - Hash master passwords
 // - Find users
-// - Check whether a user exists
 // - Never store the original master password
 // ==========================================================
+
 
 // ==========================================================
 // Imports
@@ -19,7 +19,8 @@ const bcrypt = require("bcrypt");
 
 const {
     getDatabase
-} = require("./db");
+} = require("../config/db");
+
 
 // ==========================================================
 // Configuration
@@ -28,6 +29,23 @@ const {
 const USERS_COLLECTION = "users";
 
 const SALT_ROUNDS = 12;
+
+
+// ==========================================================
+// Get User Collection
+// ==========================================================
+
+function getUserCollection() {
+
+    const database =
+        getDatabase();
+
+    return database.collection(
+        USERS_COLLECTION
+    );
+
+}
+
 
 // ==========================================================
 // Create User
@@ -38,13 +56,9 @@ async function createUser(
     masterPassword
 ) {
 
-    const database =
-        getDatabase();
-
     const users =
-        database.collection(
-            USERS_COLLECTION
-        );
+        getUserCollection();
+
 
     // Check whether username already exists
 
@@ -61,6 +75,7 @@ async function createUser(
 
     }
 
+
     // Hash master password
 
     const passwordHash =
@@ -68,6 +83,7 @@ async function createUser(
             masterPassword,
             SALT_ROUNDS
         );
+
 
     // Create user record
 
@@ -81,12 +97,14 @@ async function createUser(
 
     };
 
+
     // Store user
 
     const result =
         await users.insertOne(
             newUser
         );
+
 
     // Return safe user information
 
@@ -105,6 +123,7 @@ async function createUser(
 
 }
 
+
 // ==========================================================
 // Find User By Username
 // ==========================================================
@@ -113,19 +132,15 @@ async function findUserByUsername(
     username
 ) {
 
-    const database =
-        getDatabase();
-
     const users =
-        database.collection(
-            USERS_COLLECTION
-        );
+        getUserCollection();
 
     return await users.findOne({
         username: username
     });
 
 }
+
 
 // ==========================================================
 // Verify Master Password
@@ -142,6 +157,7 @@ async function verifyMasterPassword(
     );
 
 }
+
 
 // ==========================================================
 // Export
