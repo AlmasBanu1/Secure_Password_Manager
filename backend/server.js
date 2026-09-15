@@ -99,6 +99,9 @@ const app =
 const PORT =
     process.env.PORT || 3000;
 
+const NODE_ENV =
+    process.env.NODE_ENV || "development";
+
 
 // ==========================================================
 // Middleware
@@ -254,23 +257,27 @@ async function startServer() {
             function () {
 
                 console.log(
-                    `Secure Password Manager server running on http://localhost:${PORT}`
+                    `Secure Password Manager server running on port ${PORT}`
                 );
 
                 console.log(
-                    `Login/Register: http://localhost:${PORT}/pages/index.html`
+                    `Environment: ${NODE_ENV}`
                 );
 
                 console.log(
-                    `Dashboard: http://localhost:${PORT}/pages/dashboard.html`
+                    `Login/Register: /pages/index.html`
                 );
 
                 console.log(
-                    `Password Page: http://localhost:${PORT}/pages/password.html`
+                    `Dashboard: /pages/dashboard.html`
                 );
 
                 console.log(
-                    `Vault: http://localhost:${PORT}/pages/vault.html`
+                    `Password Page: /pages/password.html`
+                );
+
+                console.log(
+                    `Vault: /pages/vault.html`
                 );
 
             }
