@@ -23,14 +23,41 @@
 
 
 // ==========================================================
+// Imports
+// ==========================================================
+
+const path =
+    require("path");
+
+
+// ==========================================================
 // Environment Configuration
 // ==========================================================
+//
+// .env is stored inside the backend/ folder.
+//
+// server.js is also inside backend/.
+//
+// Therefore we explicitly load:
+// backend/.env
+//
+// This allows the application to be started from the
+// project root using:
+//
+// npm start
+//
+// ==========================================================
 
-require("dotenv").config();
+require("dotenv").config({
+    path: path.join(
+        __dirname,
+        ".env"
+    )
+});
 
 
 // ==========================================================
-// Imports
+// Express and Middleware Imports
 // ==========================================================
 
 const express =
@@ -39,9 +66,10 @@ const express =
 const cors =
     require("cors");
 
-const path =
-    require("path");
 
+// ==========================================================
+// Application Imports
+// ==========================================================
 
 const {
     connectDatabase
@@ -116,7 +144,8 @@ app.use(
 //     ├── pages/
 //     │   ├── index.html
 //     │   ├── dashboard.html
-//     │   └── password.html
+//     │   ├── password.html
+//     │   └── vault.html
 //     │
 //     ├── css/
 //     └── js/
@@ -238,6 +267,10 @@ async function startServer() {
 
                 console.log(
                     `Password Page: http://localhost:${PORT}/pages/password.html`
+                );
+
+                console.log(
+                    `Vault: http://localhost:${PORT}/pages/vault.html`
                 );
 
             }

@@ -759,22 +759,38 @@ Build Frontend Interface
 
 # 🚀 Upcoming Milestones
 
-## Version 31 — Refactoring, Documentation & Deployment
+## Version 31 — Refactoring, Documentation & Deployment — IN PROGRESS 
 
 Turn the project into a clean, maintainable and portfolio-ready application.
 
-**Requirements**
+### Completed So Far
 
 - Clean project structure
-- Modularize backend
-- Modularize frontend
-- Separate routes/controllers/database logic where appropriate
-- Remove duplicate code
-- Improve naming and code organization
-- Basic performance/architecture cleanup
+- Modularized backend
+- Modularized frontend
+- Separated routes, controllers, models, middleware and database logic
+- Removed duplicate and unused code
+- Improved naming and code organization
+- Basic architecture cleanup
 - Environment configuration
 - `.env` secret management
 - `.env.example`
+- Shared frontend API module
+- Shared frontend UI module
+- Multi-page frontend architecture
+- Protected frontend pages
+- Centralized authentication token handling
+- Refactored authentication controller
+- Refactored password controller
+- Refactored MongoDB database module
+- Removed unused CSS files
+- Verified authentication flow
+- Verified password CRUD operations
+- Verified protected API access
+- Verified frontend navigation and authentication behavior
+
+### Remaining Work
+
 - README
 - Installation guide
 - Usage guide
@@ -786,7 +802,9 @@ Turn the project into a clean, maintainable and portfolio-ready application.
 - Final testing after deployment
 - Final portfolio preparation
 
-**Final Project Quality**
+### Final Project Quality
+
+The completed Version 31 project should have:
 
 - Clean code
 - Maintainable architecture
@@ -836,5 +854,4 @@ The Secure Password Manager should demonstrate:
 
 ---
 
-This project will serve as both a complete JavaScript
-learning journey and a professional portfolio project.
+This project will serve as both a complete JavaScript learning journey and a professional portfolio project.
