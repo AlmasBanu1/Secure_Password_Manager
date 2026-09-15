@@ -331,7 +331,7 @@ async function handleLogin() {
             function () {
 
                 window.location.href =
-                    "./dashboard.html";
+                    "/pages/dashboard.html";
 
             },
             400
@@ -456,7 +456,7 @@ function protectLoginPage() {
 
 
         window.location.href =
-            "./dashboard.html";
+            "/pages/dashboard.html";
 
 
         return false;
