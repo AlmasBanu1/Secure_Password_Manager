@@ -111,9 +111,24 @@ const NODE_ENV =
 // ----------------------------------------------------------
 // CORS
 // ----------------------------------------------------------
+//
+// Allow requests only from the application's known origins.
+//
+// Local development:
+// http://localhost:3000
+//
+// Production:
+// https://secure-password-manager-080x.onrender.com
+//
+// ==========================================================
 
 app.use(
-    cors()
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "https://secure-password-manager-080x.onrender.com"
+        ]
+    })
 );
 
 
