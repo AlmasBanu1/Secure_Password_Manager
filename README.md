@@ -1,8 +1,10 @@
 # 🔐 Secure Password Manager
 
-A full-stack secure password manager built with **JavaScript, Node.js, Express.js, MongoDB, JWT authentication, bcrypt password hashing, and AES-based vault encryption**.
+A full-stack secure password manager built with **JavaScript, Node.js, Express.js, MongoDB, JWT authentication, bcrypt password hashing, and AES-256-GCM vault encryption**.
 
-This project was developed as a learning-by-building journey, progressing from JavaScript fundamentals to a modular full-stack application with authentication, encrypted password storage, REST APIs, database persistence, and security-focused development practices.
+This project was developed as a learning-by-building journey, progressing from JavaScript fundamentals to a modular full-stack application with authentication, encrypted password storage, REST APIs, database persistence, security testing, documentation, and deployment.
+
+> **Live application:** https://secure-password-manager-080x.onrender.com
 
 ---
 
@@ -17,6 +19,7 @@ This project was developed as a learning-by-building journey, progressing from J
 * Protected frontend pages
 * Secure master-password hashing using bcrypt
 * Generic authentication error messages
+* Centralized frontend authentication token handling
 
 ### 🔐 Password Vault
 
@@ -28,6 +31,7 @@ This project was developed as a learning-by-building journey, progressing from J
 * User-specific password isolation
 * Encrypted password storage
 * Password validation
+* Duplicate password detection
 
 ### 🎲 Password Generator
 
@@ -37,15 +41,18 @@ This project was developed as a learning-by-building journey, progressing from J
 
 ### 🛡️ Security
 
-* AES-based vault encryption
-* bcrypt password hashing
+* AES-256-GCM authenticated encryption for recoverable vault passwords
+* bcrypt password hashing for master passwords
 * JWT authentication
 * Authorization middleware
+* User ownership enforcement
 * Input validation
 * Environment-based secret management
 * `.env` protection
-* User-specific database access
 * Protected API endpoints
+* Restricted CORS configuration
+* Dependency vulnerability auditing
+* Security-focused testing including authorization and ciphertext-tampering tests
 
 ### 🖥️ Frontend
 
@@ -70,6 +77,7 @@ This project was developed as a learning-by-building journey, progressing from J
 * Validation middleware
 * MongoDB database integration
 * Centralized database configuration
+* Environment-based configuration
 
 ---
 
@@ -101,18 +109,20 @@ This project was developed as a learning-by-building journey, progressing from J
 
 ### Security
 
-* AES encryption
+* AES-256-GCM
 * bcrypt password hashing
 * JWT authentication
+* Authorization middleware
 * Input validation
 * Environment variables
 * Secret management
 
-### Development
+### Development & Deployment
 
 * Git
 * GitHub
 * npm
+* Render
 
 ---
 
@@ -120,6 +130,7 @@ This project was developed as a learning-by-building journey, progressing from J
 
 ```text
 Secure_Password_Manager/
+
 │
 ├── backend/
 │   ├── config/
@@ -145,8 +156,7 @@ Secure_Password_Manager/
 │   │   └── vaultCrypto.js
 │   │
 │   ├── .env.example
-│   ├── server.js
-│   └── server.v28.backup.js
+│   └── server.js
 │
 ├── frontend/
 │   ├── css/
@@ -174,6 +184,13 @@ Secure_Password_Manager/
 ├── ...
 ├── password-strength-checker-v25.js
 │
+├── docs/
+│   ├── API.md
+│   ├── ARCHITECTURE.md
+│   ├── INSTALLATION.md
+│   ├── SECURITY.md
+│   └── USAGE.md
+│
 ├── Project-Roadmap.md
 ├── package.json
 ├── package-lock.json
@@ -183,13 +200,13 @@ Secure_Password_Manager/
 
 ### Historical Files
 
-The repository also contains a small number of historical files retained to preserve the project's development history:
+The repository intentionally retains selected historical files to preserve the project's development and learning history:
 
 * `backend/server.v28.backup.js` — historical V28 backend backup
 * `frontend/script.js` — historical V26/V27 frontend implementation
 * `password-strength-checker-v1.js` through `password-strength-checker-v25.js` — progressive JavaScript learning and project-development versions
 
-These historical files are not part of the active V31 application flow.
+These historical files are **not part of the active V31 application flow**.
 
 > `backend/.env` is created locally during installation and is intentionally excluded from version control.
 
@@ -230,65 +247,69 @@ The application follows a modular client-server architecture.
 
 The password encryption layer is handled by the vault encryption utility before encrypted password data is persisted in MongoDB.
 
+Detailed architecture documentation:
+
+* [Architecture Guide](docs/ARCHITECTURE.md)
+
 ---
 
 ## 🔄 Authentication Flow
 
 ```text
-                              ┌──────────────┐
-                              │     User     │
-                              └──────┬───────┘
-                                     │
-                                     ▼
-                         ┌──────────────────────┐
-                         │ Login / Register     │
-                         │        Page          │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │ Express Auth Route   │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │ Authentication       │
-                         │ Controller           │
-                         └──────────┬───────────┘
-                                    │
-                     ┌──────────────┼──────────────┐
-                     │              │              │
-                     ▼              ▼              ▼
-               Validate Input   Find User    Verify bcrypt
-                                                    │
-                                                    ▼
-                                              Generate JWT
-                                                    │
-                                                    ▼
-                         ┌──────────────────────────────┐
-                         │ Frontend receives JWT        │
-                         └──────────────┬───────────────┘
-                                        │
-                                        ▼
+                         ┌──────────────┐
+                         │     User     │
+                         └──────┬───────┘
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │ Login / Register     │
+                    │        Page          │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Express Auth Route   │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Authentication       │
+                    │ Controller           │
+                    └──────────┬───────────┘
+                               │
+                 ┌─────────────┼─────────────┐
+                 │             │             │
+                 ▼             ▼             ▼
+          Validate Input   Find User   Verify bcrypt
+                                             │
+                                             ▼
+                                        Generate JWT
+                                             │
+                                             ▼
+                    ┌──────────────────────────────┐
+                    │ Frontend receives JWT        │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
                               sessionStorage
-                                        │
-                                        ▼
-                              Protected API Request
-                                        │
-                                        ▼
-                         ┌──────────────────────────────┐
-                         │ Authentication Middleware    │
-                         └──────────────┬───────────────┘
-                                        │
-                                        ▼
-                              Authorized Controller
+                                   │
+                                   ▼
+                          Protected API Request
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │ Authentication Middleware   │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                           Authorized Controller
 ```
 
 ---
 
 ## 🔐 Password Storage Flow
 
-Passwords stored inside the vault are encrypted before being persisted.
+Vault passwords are encrypted before being persisted.
 
 ### Storing a Password
 
@@ -299,17 +320,19 @@ Passwords stored inside the vault are encrypted before being persisted.
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │    Validation    │
+                         │    Validation   │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │  AES Encryption  │
+                         │  AES-256-GCM     │
+                         │    Encryption    │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
                          │ Encrypted Data   │
+                         │ + IV + Auth Tag  │
                          └────────┬─────────┘
                                   │
                                   ▼
@@ -332,7 +355,8 @@ Passwords stored inside the vault are encrypted before being persisted.
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │  AES Decryption  │
+                         │ AES-256-GCM      │
+                         │    Decryption    │
                          └────────┬─────────┘
                                   │
                                   ▼
@@ -350,7 +374,7 @@ Passwords stored inside the vault are encrypted before being persisted.
 
 ## 🔑 Authentication Security
 
-The application uses different security mechanisms for different types of sensitive information.
+Different security mechanisms are used for different types of sensitive information.
 
 ### Master Password
 
@@ -359,50 +383,23 @@ The user's master password is **hashed using bcrypt**.
 The original master password is not stored directly.
 
 ```text
-                         ┌──────────────────┐
-                         │  Master Password │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │      bcrypt      │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │  Password Hash   │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │     MongoDB      │
-                         └──────────────────┘
+Master Password
+       │
+       ▼
+     bcrypt
+       │
+       ▼
+Password Hash
+       │
+       ▼
+    MongoDB
 ```
 
 ### Stored Vault Passwords
 
 Vault passwords need to be recovered when an authorized user requests them, so they are **encrypted rather than one-way hashed**.
 
-```text
-                         ┌──────────────────┐
-                         │  Vault Password  │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │  AES Encryption  │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │ Encrypted Data   │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │     MongoDB      │
-                         └──────────────────┘
-```
+The application uses AES-256-GCM authenticated encryption with a secret 256-bit key and per-record IV/authentication data.
 
 ---
 
@@ -426,6 +423,8 @@ Password records contain information such as:
 
 * User ID
 * Encrypted password
+* Initialization vector
+* Authentication tag
 * Creation timestamp
 * Update timestamp
 
@@ -454,7 +453,9 @@ DELETE /api/passwords/:id
 
 Password routes require valid authentication.
 
-Detailed API documentation is provided separately as part of the Version 31 documentation phase.
+Detailed API documentation:
+
+* [API Documentation](docs/API.md)
 
 ---
 
@@ -462,9 +463,8 @@ Detailed API documentation is provided separately as part of the Version 31 docu
 
 For detailed setup instructions, see:
 
-```text
-docs/INSTALLATION.md
-```
+* [Installation Guide](docs/INSTALLATION.md)
+* [Usage Guide](docs/USAGE.md)
 
 ### Quick Start
 
@@ -499,6 +499,7 @@ Use `backend/.env.example` as the template.
 Required variables:
 
 ```env
+MONGO_URI=your_mongodb_connection_string_here
 ENCRYPTION_KEY=your_encryption_key_here
 JWT_SECRET=your_jwt_secret_here
 VAULT_ENCRYPTION_KEY=your_64_character_vault_key_here
@@ -548,19 +549,47 @@ http://localhost:3000/pages/vault.html
 
 ---
 
-## 🧪 Testing
+## ☁️ Deployment
 
-The project has been tested across the major application flows, including:
+The application is deployed using **Render** with MongoDB Atlas as the production database.
+
+### Production Application
+
+**https://secure-password-manager-080x.onrender.com**
+
+Production configuration uses environment variables for:
+
+* MongoDB connection
+* JWT secret
+* General encryption configuration
+* Vault encryption key
+
+Secrets are not stored in the Git repository.
+
+The deployment uses:
+
+```text
+Build Command: npm install
+Start Command: npm start
+```
+
+Detailed deployment and configuration information is covered in the project documentation.
+
+---
+
+## 🧪 Testing & Security Validation
+
+The project has been tested across major functional, authentication, authorization, security, and deployment flows.
+
+### Functional Testing
 
 * User registration
 * User login
-* JWT authentication
-* Protected API access
 * Password creation
 * Password retrieval
 * Password update
 * Password deletion
-* User-specific password access
+* Logout
 * Frontend authentication flow
 * Protected frontend pages
 * Frontend navigation
@@ -568,19 +597,50 @@ The project has been tested across the major application flows, including:
 * MongoDB connectivity
 * Environment configuration
 * Local server startup
+* Production deployment
 
-Final production testing will be completed after deployment.
+### Authentication & Authorization Testing
+
+* Missing JWT → `401 Unauthorized`
+* Invalid JWT → `401 Unauthorized`
+* Malformed JWT → `401 Unauthorized`
+* Valid authenticated API access → `200 OK`
+* Invalid password ID → `400 Bad Request`
+* Cross-user GET access → `404 Not Found`
+* Cross-user PUT access → `404 Not Found`
+* Cross-user DELETE access → `404 Not Found`
+* Duplicate registration → `409 Conflict`
+* Duplicate vault password detection
+
+### Encryption Testing
+
+AES-256-GCM ciphertext tampering was tested by modifying stored encrypted data and attempting authorized retrieval.
+
+The modified ciphertext failed authentication/decryption, demonstrating that tampered encrypted data is not accepted as valid plaintext.
+
+The original database record was subsequently restored and successfully decrypted again.
+
+### Dependency Security
+
+The project was audited using npm:
+
+```text
+npm audit --audit-level=moderate
+found 0 vulnerabilities
+```
+
+### CORS
+
+Production CORS configuration was restricted to the intended local and deployed frontend origins and verified after deployment.
 
 ---
 
 ## 🛡️ Security Considerations
 
-This project was designed with security as an important part of the development process.
-
 Implemented security measures include:
 
 * bcrypt hashing for master passwords
-* AES encryption for recoverable vault passwords
+* AES-256-GCM authenticated encryption for recoverable vault passwords
 * JWT-based authentication
 * Authorization middleware
 * User-specific database queries
@@ -590,12 +650,32 @@ Implemented security measures include:
 * `.env.example` provided for configuration reference
 * Generic authentication failure messages
 * Protected password CRUD operations
+* Restricted CORS configuration
+* Dependency vulnerability auditing
+* Cross-user authorization testing
+* Ciphertext-tampering testing
 
 ### Important
 
 This project is intended as an educational and portfolio project.
 
 It should **not be treated as a production-grade replacement for established password managers** without further security auditing, threat modeling, penetration testing, key-management improvements, and independent security review.
+
+Detailed security documentation:
+
+* [Security Documentation](docs/SECURITY.md)
+
+---
+
+## 📚 Documentation
+
+Additional V31 documentation:
+
+* [Installation Guide](docs/INSTALLATION.md)
+* [Usage Guide](docs/USAGE.md)
+* [API Documentation](docs/API.md)
+* [Architecture Documentation](docs/ARCHITECTURE.md)
+* [Security Documentation](docs/SECURITY.md)
 
 ---
 
@@ -665,7 +745,7 @@ Major milestones include:
 * **V28** — MongoDB persistence
 * **V29** — Authentication and access control
 * **V30** — Security hardening and testing
-* **V31** — Refactoring, documentation, deployment, and portfolio preparation
+* **V31** — Refactoring, documentation, deployment, security validation, and portfolio preparation
 
 For the complete development history, see:
 
@@ -714,7 +794,7 @@ The Secure Password Manager was created to demonstrate practical understanding o
 
 ## 🚧 Current Status
 
-**Version 31 — Refactoring, Documentation & Deployment**
+**Version 31 — Finalized**
 
 ### Completed
 
@@ -734,24 +814,23 @@ The Secure Password Manager was created to demonstrate practical understanding o
 * Refactored password controller
 * Refactored MongoDB database module
 * Removed unused CSS files
-* Verified authentication flow
-* Verified password CRUD operations
-* Verified protected API access
-* Verified frontend navigation
-* Verified local server startup
+* Authentication flow verification
+* Password CRUD verification
+* Protected API verification
+* Cross-user authorization testing
+* AES-256-GCM tampering validation
+* Dependency vulnerability audit
+* CORS hardening
+* MongoDB Atlas production configuration
+* Render deployment
+* Production smoke testing
+* V31 documentation
 
-### Remaining
+### Final State
 
-* Complete README documentation
-* Installation guide
-* Usage guide
-* API documentation
-* Architecture documentation
-* Security documentation
-* Deployment
-* Production configuration
-* Final production testing
-* Portfolio preparation
+The application is deployed and operational as a portfolio project.
+
+The repository is maintained on the `version-31` branch with the final V31 implementation and security fixes.
 
 ---
 
